@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Settings — Eclipse Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Toast -->
+  <div id="toast"></div>
+
+  <nav class="nav-tabs">
+    <div class="nav-tabs-left">
+      <a href="index.html">Home</a>
+      <a href="games.html">Games</a>
+      <a href="apps.html">Apps</a>
+      <a href="settings.html" class="active">Settings</a>
+    </div>
+  </nav>
+
+  <div class="settings-page-container">
+    <h1 class="settings-page-title">Settings</h1>
+
+    <!-- ══════════════ 1. BLANKER ══════════════ -->
+    <div class="settings-card">
+      <div class="settings-card-header">
+        <div class="settings-card-title">Blanker</div>
+      </div>
+      <p class="settings-card-desc">
+        Opens the site inside an <code
+          style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;font-size:12px;">about:blank</code>
+        popup window — the URL bar shows nothing suspicious.
+      </p>
+      <div class="settings-actions">
+        <button class="s-btn accent" onclick="openInAboutBlank()">Open Blank Tab</button>
+      </div>
+    </div>
+
+    <!-- ══════════════ 2. ANIMATIONS ══════════════ -->
+    <div class="settings-card">
+      <div class="settings-card-header">
+        <div class="settings-card-title">Animations</div>
+      </div>
+      <p class="settings-card-desc">
+        Turn off all particle effects and CSS animations for better performance on slow devices.
+      </p>
+      <div class="toggle-row">
+        <label class="toggle-switch" id="animToggleWrap">
+          <input type="checkbox" id="animToggle" onchange="saveAnimations()">
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label" id="animLabel">Enabled</span>
+      </div>
+    </div>
+
+    <!-- ══════════════ 3. BACKGROUND / PARTICLE CHANGER ══════════════ -->
+    <div class="settings-card">
+      <div class="settings-card-header">
+        <div class="settings-card-title">Background Changer</div>
+      </div>
+      <p class="settings-card-desc">
+        Choose a particle effect for the background. Changes take effect on all pages after saving.
+      </p>
+      <select id="particleSelect" class="settings-select">
+        <option value="snow">Snow — Soft falling snowflakes</option>
+        <option value="stars">Stars — Twinkling starfield</option>
+        <option value="rain">Rain — Fast blue rain streaks</option>
+        <option value="bubbles">Bubbles — Rising glowing bubbles</option>
+        <option value="embers">Embers — Rising fire sparks</option>
+        <option value="matrix">Matrix — Green falling characters</option>
+        <option value="grid">Grid — Dark grid with mouse light</option>
+        <option value="banner">Banner — Custom community banner</option>
+        <option value="none">None — No background effect</option>
+      </select>
+      <div class="settings-actions" style="margin-top:14px;">
+        <button class="s-btn accent" onclick="saveParticle()">Apply Background</button>
+      </div>
+    </div>
+
+
+
+    <!-- ══════════════ 5. THEME ══════════════ -->
+    <div class="settings-card">
+      <div class="settings-card-header">
+        <div class="settings-card-title">Theme</div>
+      </div>
+      <p class="settings-card-desc">Choose a color theme for the entire site.</p>
+      <label style="font-size:13px;color:#9ca3af;display:block;margin-bottom:4px;">Theme preset:</label>
+      <select id="themeSelect" class="settings-select">
+        <option value="theme-bw">Black &amp; White</option>
+        <option value="theme-dark">Dark Original</option>
+        <option value="theme-neon">Neon</option>
+        <option value="theme-sunset">Sunset</option>
+        <option value="theme-ocean">Ocean</option>
+        <option value="theme-forest">Forest</option>
+        <option value="theme-sunset-glow">Sunset Glow</option>
+      </select>
+      <label style="font-size:13px;color:#9ca3af;display:block;margin-bottom:4px;margin-top:14px;">Accent color:</label>
+      <select id="colorSelect" class="settings-select">
+        <option value="">Default</option>
+        <option value="red">Red</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+        <option value="purple">Purple</option>
+        <option value="orange">Orange</option>
+        <option value="pink">Pink</option>
+        <option value="cyan">Cyan</option>
+        <option value="yellow">Yellow</option>
+      </select>
+      <div class="settings-actions">
+        <button class="s-btn accent" onclick="applyTheme()">Apply Theme</button>
+        <button class="s-btn danger" onclick="resetTheme()">Reset</button>
+      </div>
+    </div>
+
+  </div><!-- /settings-page-container -->
+
+  <script>
+    /* ============================================================
+       TOAST
+       ============================================================ */
+    function toast(msg, ms = 2200) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), ms);
+    }
+
+    /* ============================================================
+       LOAD SAVED STATE
+       ============================================================ */
+    const savedTheme = localStorage.getItem('selectedTheme') || localStorage.getItem('theme') || 'theme-bw';
+    const savedColor = localStorage.getItem('selectedColor') || '';
+    const savedParticle = localStorage.getItem('particleType') || 'snow';
+    const savedAnim = localStorage.getItem('animationEnabled') !== 'false';
+
+    // Apply theme on load
+    document.body.classList.add(savedTheme);
+    if (savedColor) { document.body.classList.add('color-' + savedColor); applyColorStyle(savedColor); }
+
+    // Set selects
+    document.getElementById('themeSelect').value = savedTheme;
+    document.getElementById('colorSelect').value = savedColor;
+    document.getElementById('particleSelect').value = savedParticle;
+    document.getElementById('particleSelect').value = savedParticle;
+
+    // Animations toggle
+    const animToggle = document.getElementById('animToggle');
+    const animLabel = document.getElementById('animLabel');
+    animToggle.checked = savedAnim;
+    animLabel.textContent = savedAnim ? 'Enabled' : 'Disabled';
+    if (savedAnim) {
+      initBgParticles(savedParticle);
+    } else {
+      document.body.classList.add('animations-disabled', 'no-particles');
+    }
+
+
+    /* ============================================================
+       1. BLANKER
+       ============================================================ */
+    function openInAboutBlank() {
+      var win = window.open();
+      if (!win) {
+        alert('Popup was blocked. Please allow popups for this site.');
+        return;
+      }
+      var url = window.location.href.split('/').slice(0, -1).join('/') + '/index.html';
+      var iframe = win.document.createElement('iframe');
+      iframe.style.width = '100%';
+      iframe.style.height = '100%';
+      iframe.style.border = 'none';
+      iframe.src = url;
+      var style = win.document.createElement('style');
+      style.innerHTML = 'body { margin: 0; padding: 0; }';
+      win.document.head.appendChild(style);
+      win.document.body.appendChild(iframe);
+      win.focus();
+    }
+
+    /* ============================================================
+       2. ANIMATIONS
+       ============================================================ */
+    function saveAnimations() {
+      const enabled = animToggle.checked;
+      animLabel.textContent = enabled ? 'Enabled' : 'Disabled';
+      localStorage.setItem('animationEnabled', enabled ? 'true' : 'false');
+      toast(enabled ? 'Animations enabled' : 'Animations disabled — reload pages to apply');
+    }
+
+    /* ============================================================
+       3. PARTICLE BACKGROUND CHANGER
+       ============================================================ */
+    function saveParticle() {
+      const type = document.getElementById('particleSelect').value;
+      localStorage.setItem('particleType', type);
+      // Re-render preview on this page
+      stopBgParticles();
+      const enabled = animToggle.checked;
+      if (enabled) initBgParticles(type);
+      const labels = { snow: 'Snow', stars: 'Stars', rain: 'Rain', bubbles: 'Bubbles', embers: 'Embers', matrix: 'Matrix', grid: 'Grid', banner: 'Banner', none: 'None' };
+      toast('Background set to ' + (labels[type] || type));
+    }
+
+
+
+    /* ============================================================
+       5. THEME & COLOR
+       ============================================================ */
+    function applyTheme() {
+      const theme = document.getElementById('themeSelect').value;
+      const color = document.getElementById('colorSelect').value;
+      localStorage.setItem('selectedTheme', theme);
+      localStorage.setItem('theme', theme);
+      localStorage.setItem('selectedColor', color);
+      document.body.className = document.body.className.replace(/theme-\w+/g, '').replace(/color-\w+/g, '').trim();
+      document.body.classList.add(theme);
+      if (color) { document.body.classList.add('color-' + color); }
+      applyColorStyle(color);
+      toast('Theme applied!');
+    }
+
+    function resetTheme() {
+      localStorage.removeItem('selectedTheme');
+      localStorage.removeItem('selectedColor');
+      localStorage.removeItem('theme');
+      document.body.className = document.body.className.replace(/theme-\w+/g, '').replace(/color-\w+/g, '').trim();
+      document.body.classList.add('theme-bw');
+      document.getElementById('themeSelect').value = 'theme-bw';
+      document.getElementById('colorSelect').value = '';
+      const s = document.getElementById('color-style');
+      if (s) s.remove();
+      toast('Theme reset');
+    }
+
+    function applyColorStyle(color) {
+      let styleEl = document.getElementById('color-style');
+      if (styleEl) styleEl.remove();
+      if (!color) return;
+      const colorMap = {
+        red: { primary: '#ff4444', light: '#ff6666', dark: '#cc0000' },
+        blue: { primary: '#4488ff', light: '#6699ff', dark: '#0044dd' },
+        green: { primary: '#44ff88', light: '#66ff99', dark: '#00cc44' },
+        purple: { primary: '#bb44ff', light: '#dd66ff', dark: '#8800ff' },
+        orange: { primary: '#ff8844', light: '#ff9955', dark: '#ff6600' },
+        pink: { primary: '#ff44dd', light: '#ff66ee', dark: '#ff0099' },
+        cyan: { primary: '#44ffff', light: '#66ffff', dark: '#00dddd' },
+        yellow: { primary: '#ffdd44', light: '#ffee66', dark: '#ffcc00' }
+      };
+      const c = colorMap[color];
+      if (!c) return;
+      styleEl = document.createElement('style');
+      styleEl.id = 'color-style';
+      styleEl.textContent = `:root{--accent-color:${c.primary};--accent-light:${c.light};--accent-dark:${c.dark};}
+    .s-btn.accent{background:linear-gradient(135deg,${c.primary},${c.light});}`;
+      document.head.appendChild(styleEl);
+    }
+
+    /* ============================================================
+       PARTICLE ENGINE (Settings page preview)
+       ============================================================ */
+    let _animId = null;
+
+    function stopBgParticles() {
+      if (_animId) { cancelAnimationFrame(_animId); _animId = null; }
+      const canvas = document.getElementById('bgCanvas');
+      if (canvas) { const ctx = canvas.getContext('2d'); ctx.clearRect(0, 0, canvas.width, canvas.height); }
+    }
+
+    function initBgParticles(type) {
+      const canvas = document.getElementById('bgCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = window.innerWidth;
+      let H = canvas.height = window.innerHeight;
+      canvas.style.display = '';
+      window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
+
+      if (type === 'snow') {
+        const flakes = Array.from({ length: 120 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 3 + 1, d: Math.random() }));
+        let angle = 0;
+        const draw = () => {
+          ctx.clearRect(0, 0, W, H);
+          ctx.fillStyle = 'rgba(255,255,255,0.8)';
+          ctx.beginPath();
+          for (const f of flakes) { ctx.moveTo(f.x, f.y); ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2); }
+          ctx.fill();
+          angle += 0.01;
+          for (const f of flakes) { f.y += Math.pow(f.d, 2) + 0.8; f.x += Math.sin(angle) * 0.4; if (f.y > H) { f.y = 0; f.x = Math.random() * W; } }
+          _animId = requestAnimationFrame(draw);
+        }; draw();
+      } else if (type === 'stars') {
+        const stars = Array.from({ length: 180 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.6 + 0.3, tw: Math.random() * Math.PI * 2, sp: Math.random() * 0.02 + 0.005 }));
+        const draw = () => {
+          ctx.clearRect(0, 0, W, H);
+          for (const s of stars) { s.tw += s.sp; ctx.beginPath(); ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255,255,255,${0.4 + 0.6 * Math.abs(Math.sin(s.tw))})`; ctx.fill(); }
+          _animId = requestAnimationFrame(draw);
+        }; draw();
+      } else if (type === 'rain') {
+        const drops = Array.from({ length: 100 }, () => ({ x: Math.random() * W, y: Math.random() * H, len: Math.random() * 18 + 8, sp: Math.random() * 8 + 6 }));
+        const draw = () => {
+          ctx.clearRect(0, 0, W, H);
+          ctx.strokeStyle = 'rgba(150,200,255,0.55)'; ctx.lineWidth = 1;
+          for (const d of drops) { ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x - 2, d.y + d.len); ctx.stroke(); d.y += d.sp; if (d.y > H) { d.y = -d.len; d.x = Math.random() * W; } }
+          _animId = requestAnimationFrame(draw);
+        }; draw();
+      } else if (type === 'bubbles') {
+        const b = Array.from({ length: 55 }, () => ({ x: Math.random() * W, y: H + Math.random() * H, r: Math.random() * 18 + 6, sp: Math.random() * 1.2 + 0.4, w: Math.random() * Math.PI * 2 }));
+        canvas.style.pointerEvents = 'auto';
+        canvas.style.cursor = 'crosshair';
+        canvas.addEventListener('click', e => {
+          const mx = e.clientX, my = e.clientY;
+          for (const bub of b) {
+            if (Math.hypot(mx - bub.x, my - bub.y) < bub.r + 10) {
+              bub.y = H + bub.r; bub.x = Math.random() * W;
+            }
+          }
+        });
+        const draw = () => {
+          ctx.clearRect(0, 0, W, H);
+          for (const e of b) { e.w += 0.015; e.y -= e.sp; e.x += Math.sin(e.w) * 0.6; if (e.y < -e.r * 2) { e.y = H + e.r; e.x = Math.random() * W; } ctx.beginPath(); ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2); ctx.strokeStyle = 'rgba(180,130,255,0.45)'; ctx.lineWidth = 1.5; ctx.stroke(); const g = ctx.createRadialGradient(e.x - e.r * .3, e.y - e.r * .3, 1, e.x, e.y, e.r); g.addColorStop(0, 'rgba(220,190,255,0.12)'); g.addColorStop(1, 'rgba(160,80,255,0.04)'); ctx.fillStyle = g; ctx.fill(); }
+          _animId = requestAnimationFrame(draw);
+        }; draw();
+      } else if (type === 'embers') {
+        const e = Array.from({ length: 90 }, () => ({ x: Math.random() * W, y: H + Math.random() * H, r: Math.random() * 2.5 + 0.5, sp: Math.random() * 2 + 0.8, w: Math.random() * Math.PI * 2, l: Math.random() }));
+        const draw = () => {
+          ctx.clearRect(0, 0, W, H);
+          for (const em of e) { em.w += 0.04; em.y -= em.sp; em.x += Math.sin(em.w) * 1.1; em.l -= 0.003; if (em.y < 0 || em.l <= 0) { em.y = H; em.x = Math.random() * W; em.l = 1; } ctx.beginPath(); ctx.arc(em.x, em.y, em.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255,${Math.floor(100 + 80 * em.l)},20,${Math.max(0, em.l)})`; ctx.fill(); }
+          _animId = requestAnimationFrame(draw);
+        }; draw();
+      } else if (type === 'matrix') {
+        const fs = 14, cols = Math.floor(W / fs), drops = Array(cols).fill(1);
+        const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ01'.split('');
+        let frame = 0;
+        const draw = () => {
+          frame++;
+          if (frame % 3 !== 0) { _animId = requestAnimationFrame(draw); return; }
+          ctx.fillStyle = 'rgba(0,0,0,0.07)'; ctx.fillRect(0, 0, W, H);
+          ctx.fillStyle = '#0f0'; ctx.font = fs + 'px monospace';
+          for (let i = 0; i < drops.length; i++) { ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs); if (drops[i] * fs > H && Math.random() > 0.975) drops[i] = 0; drops[i]++; }
+          _animId = requestAnimationFrame(draw);
+        }; draw();
+      } else if (type === 'grid') {
+        let mx = -999, my = -999;
+        window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        const CELL = 40;
+        const draw = () => {
+          ctx.clearRect(0, 0, W, H);
+          const cols2 = Math.ceil(W / CELL) + 1, rows = Math.ceil(H / CELL) + 1;
+          for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols2; c++) {
+              const cx = c * CELL, cy = r * CELL, dist = Math.hypot(cx - mx, cy - my), glow = Math.max(0, 1 - dist / 180);
+              const v = Math.round(80 + glow * 175);
+              ctx.strokeStyle = `rgba(${v},${v},${v},${0.18 + glow * 0.55})`;
+              ctx.lineWidth = 0.5 + glow * 1.5;
+              ctx.strokeRect(cx, cy, CELL, CELL);
+            }
+          }
+          _animId = requestAnimationFrame(draw);
+        }; draw();
+      } else if (type === 'banner') {
+        document.body.classList.add('banner-bg');
+        canvas.style.display = 'none';
+      } else if (type === 'none') {
+        canvas.style.display = 'none';
+      }
+    }
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 — Eclipse Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <nav class="nav-tabs">
+    <div class="nav-tabs-left">
+      <a href="index.html">Home</a>
+      <a href="games.html">Games</a>
+      <a href="apps.html">Apps</a>
+      <a href="settings.html">Settings</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Ambient glow orbs -->
+    <div class="hero-glow a"></div>
+    <div class="hero-glow b"></div>
+
+    <div class="hero-content">
+      <div class="hero-eyebrow">Error 404 · Lost in Space</div>
+      <h1>Page Not Found</h1>
+      <p class="hero-subtitle">
+        The page you are looking for doesn't exist or has been moved to another dimension.
+      </p>
+
+      <div class="hero-actions">
+        <a href="index.html" class="btn primary">Back to Home</a>
+        <a href="games.html" class="btn secondary">View Games</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ========= SETTINGS SYSTEM ========= */
+    const settings = {
+      animationEnabled: localStorage.getItem('animationEnabled') !== 'false',
+      theme: localStorage.getItem('theme') || localStorage.getItem('selectedTheme') || 'theme-bw',
+      particleType: localStorage.getItem('particleType') || 'snow',
+    };
+
+    function initializeSettings() {
+      document.body.classList.add(settings.theme);
+      if (!settings.animationEnabled) {
+        document.body.classList.add('animations-disabled');
+        document.body.classList.add('no-particles');
+        document.querySelectorAll('h1, .hero-subtitle, .hero-actions, .hero-eyebrow').forEach(el => {
+          el.classList.add('no-animation');
+        });
+      }
+    }
+    initializeSettings();
+
+    /* ========= PARTICLE ENGINE ========= */
+    (function () {
+      if (!settings.animationEnabled) return;
+
+      const canvas = document.getElementById('bgCanvas');
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = window.innerWidth;
+      let H = canvas.height = window.innerHeight;
+      const type = settings.particleType;
+
+      window.addEventListener('resize', () => {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+      });
+
+      function initSnow() {
+        const flakes = [];
+        for (let i = 0; i < 130; i++) {
+          flakes.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 3 + 1, d: Math.random() * 1 });
+        }
+        let angle = 0;
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          ctx.fillStyle = 'rgba(255,255,255,0.85)';
+          ctx.beginPath();
+          for (const f of flakes) { ctx.moveTo(f.x, f.y); ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2); }
+          ctx.fill();
+          angle += 0.01;
+          for (let i = 0; i < flakes.length; i++) {
+            flakes[i].y += Math.pow(flakes[i].d, 2) + 0.8;
+            flakes[i].x += Math.sin(angle) * 0.4;
+            if (flakes[i].y > H) { flakes[i].y = 0; flakes[i].x = Math.random() * W; }
+          }
+          requestAnimationFrame(draw);
+        }
+        draw();
+      }
+
+      /* Simple Snow for 404 to avoid heavy code bloat */
+      initSnow();
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eclipse Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+
+<body>
+
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Failover banner -->
+  <div id="failoverBannerIndex" class="failover-banner" style="display:none;"></div>
+
+  <nav class="nav-tabs">
+    <div class="nav-tabs-left">
+      <a href="index.html" class="active">Home</a>
+      <a href="games.html">Games</a>
+      <a href="apps.html">Apps</a>
+      <a href="settings.html">Settings</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <!-- Ambient glow orbs -->
+    <div class="hero-glow a"></div>
+    <div class="hero-glow b"></div>
+
+    <div class="hero-content">
+      <!-- Eyebrow badge -->
+      <div class="hero-eyebrow">Eclipse Games · best unblocked games, ong</div>
+
+      <!-- Main title -->
+      <h1>Eclipse Games</h1>
+
+      <!-- Subtitle -->
+      <p class="hero-subtitle">
+        Tons of unblocked games for when you're bored in class. Join the Discord for more stuff :D
+      </p>
+
+      <!-- Stat chips -->
+      <div class="hero-badges">
+        <div class="badge-chip">200+ Games</div>
+      </div>
+
+      <!-- CTA buttons -->
+      <div class="hero-actions">
+        <a href="games.html" class="btn primary">
+          Browse Games
+          <span class="btn-floating-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
+            </svg>
+          </span>
+        </a>
+        <!-- Replace YOUR_DISCORD_INVITE with your actual Discord invite code -->
+        <a href="https://discord.gg/7MjQzEHfd8" target="_blank" class="btn discord">
+          Join Discord
+          <span class="btn-floating-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037 19.736 19.736 0 0 0-4.885 1.515.069.069 0 0 0-.032.027C.533 9.048-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.419-2.157 2.419z" />
+            </svg>
+          </span>
+        </a>
+        <!-- Replace YOUR_FORM_URL with your actual Google Form link -->
+        <a href="https://forms.gle/Lt5JrEKaJJa5RNPi7" target="_blank" class="btn sheets">
+          Request a Game
+          <span class="btn-floating-icon">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 9V3.5L18.5 9H13z" />
+            </svg>
+          </span>
+        </a>
+      </div>
+
+      <!-- Quote -->
+      <div class="quote-section">
+        <p id="quote"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* ========= SETTINGS SYSTEM ========= */
+    const settings = {
+      animationEnabled: localStorage.getItem('animationEnabled') !== 'false',
+      theme: localStorage.getItem('theme') || localStorage.getItem('selectedTheme') || 'theme-bw',
+      particleType: localStorage.getItem('particleType') || 'snow',
+      particleType: localStorage.getItem('particleType') || 'snow',
+    };
+
+    function initializeSettings() {
+      // Theme
+      document.body.classList.add(settings.theme);
+
+      // Animations
+      if (!settings.animationEnabled) {
+        document.body.classList.add('animations-disabled');
+        document.body.classList.add('no-particles');
+      }
+
+
+      // No-animation class on elements
+      if (!settings.animationEnabled) {
+        document.querySelectorAll('h1, .hero-subtitle, .hero-badges, .hero-actions, .hero-eyebrow, .quote-section').forEach(el => {
+          el.classList.add('no-animation');
+        });
+      }
+    }
+    initializeSettings();
+
+    /* ========= QUOTES ========= */
+    const quotes = [
+      '"The only way to do great work is to love what you do." — Steve Jobs',
+      '"Innovation distinguishes between a leader and a follower." — Steve Jobs',
+      '"Life is what happens when you\'re busy making other plans." — John Lennon',
+      '"The future belongs to those who believe in the beauty of their dreams." — Eleanor Roosevelt',
+      '"It is during our darkest moments that we must focus to see the light." — Aristotle',
+      '"The only impossible journey is the one you never begin." — Tony Robbins',
+      '"Believe you can and you\'re halfway there." — Theodore Roosevelt',
+      '"Dreams don\'t work unless you do." — John C. Maxwell',
+      '"U lowky look mad cute rn ;D" — zomo :3'
+    ];
+    document.getElementById('quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
+
+    /* ========= PARTICLE ENGINE ========= */
+    (function () {
+      if (!settings.animationEnabled) return;
+
+      const canvas = document.getElementById('bgCanvas');
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = window.innerWidth;
+      let H = canvas.height = window.innerHeight;
+      let animId;
+      const type = settings.particleType;
+
+      window.addEventListener('resize', () => {
+        W = canvas.width = window.innerWidth;
+        H = canvas.height = window.innerHeight;
+        if (type === 'matrix') initMatrix();
+      });
+
+      /* ─── SNOW ─── */
+      function initSnow() {
+        const flakes = [];
+        for (let i = 0; i < 130; i++) {
+          flakes.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 3 + 1, d: Math.random() * 1 });
+        }
+        let angle = 0;
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          ctx.fillStyle = 'rgba(255,255,255,0.85)';
+          ctx.beginPath();
+          for (const f of flakes) { ctx.moveTo(f.x, f.y); ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2); }
+          ctx.fill();
+          angle += 0.01;
+          for (let i = 0; i < flakes.length; i++) {
+            flakes[i].y += Math.pow(flakes[i].d, 2) + 0.8;
+            flakes[i].x += Math.sin(angle) * 0.4;
+            if (flakes[i].y > H) { flakes[i].y = 0; flakes[i].x = Math.random() * W; }
+          }
+          animId = requestAnimationFrame(draw);
+        }
+        draw();
+      }
+
+      /* ─── STARS ─── */
+      function initStars() {
+        const stars = [];
+        for (let i = 0; i < 180; i++) {
+          stars.push({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.6 + 0.3, twinkle: Math.random() * Math.PI * 2, speed: Math.random() * 0.02 + 0.005 });
+        }
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          for (const s of stars) {
+            s.twinkle += s.speed;
+            const alpha = 0.4 + 0.6 * Math.abs(Math.sin(s.twinkle));
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+            ctx.fill();
+          }
+          animId = requestAnimationFrame(draw);
+        }
+        draw();
+      }
+
+      /* ─── RAIN ─── */
+      function initRain() {
+        const drops = [];
+        for (let i = 0; i < 100; i++) {
+          drops.push({ x: Math.random() * W, y: Math.random() * H, len: Math.random() * 18 + 8, speed: Math.random() * 8 + 6 });
+        }
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          ctx.strokeStyle = 'rgba(150,200,255,0.55)';
+          ctx.lineWidth = 1;
+          for (const d of drops) {
+            ctx.beginPath();
+            ctx.moveTo(d.x, d.y);
+            ctx.lineTo(d.x - 2, d.y + d.len);
+            ctx.stroke();
+            d.y += d.speed;
+            if (d.y > H) { d.y = -d.len; d.x = Math.random() * W; }
+          }
+          animId = requestAnimationFrame(draw);
+        }
+        draw();
+      }
+
+      /* ─── BUBBLES (click to pop!) ─── */
+      function initBubbles() {
+        const bubbles = [];
+        for (let i = 0; i < 55; i++) {
+          bubbles.push({ x: Math.random() * W, y: H + Math.random() * H, r: Math.random() * 18 + 6, speed: Math.random() * 1.2 + 0.4, wobble: Math.random() * Math.PI * 2 });
+        }
+        canvas.style.pointerEvents = 'auto';
+        canvas.style.cursor = 'crosshair';
+        canvas.addEventListener('click', e => {
+          const mx = e.clientX, my = e.clientY;
+          for (const b of bubbles) {
+            if (Math.hypot(mx - b.x, my - b.y) < b.r + 10) {
+              b.y = H + b.r; b.x = Math.random() * W;
+            }
+          }
+        });
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          for (const b of bubbles) {
+            b.wobble += 0.015;
+            b.y -= b.speed;
+            b.x += Math.sin(b.wobble) * 0.6;
+            if (b.y < -b.r * 2) { b.y = H + b.r; b.x = Math.random() * W; }
+            ctx.beginPath();
+            ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+            ctx.strokeStyle = 'rgba(180,130,255,0.45)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+            const grad = ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, 1, b.x, b.y, b.r);
+            grad.addColorStop(0, 'rgba(220,190,255,0.12)');
+            grad.addColorStop(1, 'rgba(160,80,255,0.04)');
+            ctx.fillStyle = grad;
+            ctx.fill();
+          }
+          animId = requestAnimationFrame(draw);
+        }
+        draw();
+      }
+
+      /* ─── EMBERS ─── */
+      function initEmbers() {
+        const embers = [];
+        for (let i = 0; i < 90; i++) {
+          embers.push({ x: Math.random() * W, y: H + Math.random() * H, r: Math.random() * 2.5 + 0.5, speed: Math.random() * 2 + 0.8, wobble: Math.random() * Math.PI * 2, life: Math.random() });
+        }
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          for (const e of embers) {
+            e.wobble += 0.04;
+            e.y -= e.speed;
+            e.x += Math.sin(e.wobble) * 1.1;
+            e.life -= 0.003;
+            if (e.y < 0 || e.life <= 0) { e.y = H; e.x = Math.random() * W; e.life = 1; }
+            const alpha = Math.max(0, e.life);
+            ctx.beginPath();
+            ctx.arc(e.x, e.y, e.r, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(255,${Math.floor(100 + 80 * e.life)},20,${alpha})`;
+            ctx.fill();
+          }
+          animId = requestAnimationFrame(draw);
+        }
+        draw();
+      }
+
+      /* ─── MATRIX (3x slower via frame skip) ─── */
+      let cols, drops_m, fontSize_m = 14, _matrixFrame = 0;
+      function initMatrix() {
+        cols = Math.floor(W / fontSize_m);
+        drops_m = Array(cols).fill(1);
+      }
+      function initMatrixAnim() {
+        initMatrix();
+        const chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノ01ﾊﾋﾌﾍﾎ'.split('');
+        function draw() {
+          _matrixFrame++;
+          if (_matrixFrame % 3 !== 0) { animId = requestAnimationFrame(draw); return; }
+          ctx.fillStyle = 'rgba(0,0,0,0.07)';
+          ctx.fillRect(0, 0, W, H);
+          ctx.fillStyle = '#0f0';
+          ctx.font = fontSize_m + 'px monospace';
+          for (let i = 0; i < drops_m.length; i++) {
+            const ch = chars[Math.floor(Math.random() * chars.length)];
+            ctx.fillText(ch, i * fontSize_m, drops_m[i] * fontSize_m);
+            if (drops_m[i] * fontSize_m > H && Math.random() > 0.975) drops_m[i] = 0;
+            drops_m[i]++;
+          }
+          animId = requestAnimationFrame(draw);
+        }
+        draw();
+      }
+
+      /* ─── GRID + MOUSE LIGHT ─── */
+      function initGrid() {
+        let mx = -999, my = -999;
+        window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        const CELL = 40;
+        function draw() {
+          ctx.clearRect(0, 0, W, H);
+          const numCols = Math.ceil(W / CELL) + 1;
+          const numRows = Math.ceil(H / CELL) + 1;
+          for (let r = 0; r < numRows; r++) {
+            for (let c = 0; c < numCols; c++) {
+              const cx = c * CELL, cy = r * CELL;
+              const dist = Math.hypot(cx - mx, cy - my);
+              const glow = Math.max(0, 1 - dist / 180);
+              const v = Math.round(80 + glow * 175);
+              ctx.strokeStyle = `rgba(${v},${v},${v},${0.18 + glow * 0.55})`;
+              ctx.lineWidth = 0.5 + glow * 1.5;
+              ctx.strokeRect(cx, cy, CELL, CELL);
+            }
+          }
+          animId = requestAnimationFrame(draw);
+        }
+        draw();
+      }
+
+      /* ─── NONE ─── */
+      function initNone() {
+        canvas.style.display = 'none';
+      }
+
+      /* ─── Dispatch ─── */
+      switch (type) {
+        case 'snow': initSnow(); break;
+        case 'stars': initStars(); break;
+        case 'rain': initRain(); break;
+        case 'bubbles': initBubbles(); break;
+        case 'embers': initEmbers(); break;
+        case 'matrix': initMatrixAnim(); break;
+        case 'grid': initGrid(); break;
+        case 'banner': document.body.classList.add('banner-bg'); break;
+        case 'none': initNone(); break;
+        default: initSnow();
+      }
+    })();
+
+    /* ========= FAILOVER BANNER ========= */
+    (function () {
+      const p = new URLSearchParams(location.search);
+      if (p.get('fail') !== 'true') return;
+      const from = p.get('from') || 'primary';
+      const time = p.get('time') ? new Date(p.get('time')).toLocaleString() : '';
+      const reason = p.get('reason') || 'unreachable';
+      const banner = document.getElementById('failoverBannerIndex');
+      banner.innerHTML = `<div><strong>Notice:</strong> Previous site (${from}) is down (${reason}). Switched to this site. <small>As of ${time}</small></div>`;
+      banner.style.display = 'block';
+      document.body.style.paddingTop = '56px';
+    })();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eclipse Movies</title>
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+
+<body>
+  <canvas id="bgCanvas"></canvas>
+
+  <!-- Failover banner placeholder (shown when redirected from manager) -->
+  <div id="failoverBannerGames" class="failover-banner" style="display:none;"></div>
+
+  <nav class="nav-tabs">
+    <div class="nav-tabs-left">
+      <a href="index.html">Home</a>
+      <a href="games.html">Games</a>
+      <a href="apps.html" class="active">Apps</a>
+      <a href="settings.html">Settings</a>
+    </div>
+  </nav>
+
+  <div class="games-container">
+    <div class="games-title-corner">
+      <h1>Eclipse Movies</h1>
+    </div>
+
+    <div class="games-controls">
+      <div class="loader" id="loader"></div>
+      <div class="loading-text" id="loadingText">Loading movies...</div>
+    </div>
+
+    <div class="search-container">
+      <!-- Kept the id "searchInput" so the existing search code works -->
+      <input type="text" id="searchInput" class="search-input" placeholder="Search movies...">
+    </div>
+
+    <div
+      style="text-align: center; color: #ffeb3b; margin: 10px 0 20px 0; font-size: 14px; background: rgba(255, 235, 59, 0.1); padding: 10px; border-radius: 8px; border: 1px solid rgba(255, 235, 59, 0.2);">
+      <strong>Notice:</strong> Not all movies are complete in highest quality. These movies might have watermarks to
+      prevent being taken down.
+    </div>
+
+    <div class="games-panel">
+      <section class="games-grid" id="gamesGrid" aria-live="polite"></section>
+    </div>
+  </div>
+
+  <!-- Game Panel Overlay -->
+  <div class="game-panel-overlay" id="gamePanelOverlay"></div>
+  <div class="game-panel" id="gamePanel">
+    <div class="game-panel-content">
+      <div class="game-panel-loader" id="gamePanelLoader">
+        <div class="loader" style="border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #ffffff;"></div>
+        <div style="color: #ffffff; font-size: 14px; margin-top: 16px;">Loading movie...</div>
+      </div>
+      <iframe id="gameFrame" src=""
+        allow="autoplay *; fullscreen *; accelerometer *; camera *; gyroscope *; magnetometer *; microphone *; usb *; xr-spatial-tracking *"></iframe>
+    </div>
+    <div class="game-panel-header">
+      <h2 class="game-panel-title" id="gamePanelTitle">Movie</h2>
+      <div class="game-actions">
+        <button class="game-panel-fullscreen" id="gamePanelFullscreen" title="Toggle Fullscreen">⛶</button>
+        <button class="game-panel-close" id="gamePanelClose" title="Close">&times;</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // List of movies - manually curated
+    const movies = [
+      {
+        title: "GOAT (2026)",
+        poster: "https://cdn.moviefone.com/admin-uploads/highlights/images/goat-official-poster_1763994055.webp?d=360x540&q=20",
+        url: "https://vidlink.pro/movie/1297842?primaryColor=8B0000&secondaryColor=000000&iconColor=FFFFFF&title=true&poster=false&autoplay=false"
+      }
+    ];
+
+    // Alphabetize the array just in case more items are added out of order
+    movies.sort((a, b) => a.title.localeCompare(b.title));
+
+    function loadGames(filter = '') {
+      const grid = document.getElementById('gamesGrid');
+      const loader = document.getElementById('loader');
+      const loadingText = document.getElementById('loadingText');
+
+      // Simulate loading delay for visual effect
+      setTimeout(() => {
+        loader.style.display = 'none';
+        loadingText.style.display = 'none';
+
+        // Clear existing cards
+        grid.innerHTML = '';
+
+        let displayedCount = 0;
+        for (const m of movies) {
+          // Filter based on search
+          if (filter && !m.title.toLowerCase().includes(filter.toLowerCase())) {
+            continue;
+          }
+
+          const a = document.createElement('a');
+          a.className = 'card';
+          a.style.backgroundImage = `url('${m.poster}')`;
+          a.style.cursor = 'pointer';
+
+          const title = document.createElement('div');
+          title.className = 'title';
+          title.textContent = m.title;
+          title.style.textShadow = "-1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000";
+
+          a.appendChild(title);
+
+          // Click handler to open game in panel
+          a.addEventListener('click', (e) => {
+            e.preventDefault();
+            openGamePanel(m.title, m.url);
+          });
+
+          grid.appendChild(a);
+          displayedCount++;
+        }
+
+        // Show "no results" message if no movies match
+        if (displayedCount === 0 && filter) {
+          const noResults = document.createElement('div');
+          noResults.style.cssText = 'grid-column: 1 / -1; text-align: center; color: #cccccc; padding: 40px;';
+          noResults.textContent = 'No movies found matching "' + filter + '"';
+          grid.appendChild(noResults);
+        }
+      }, 600);
+    }
+
+    function openGamePanel(gameName, gameUrl) {
+      const panel = document.getElementById('gamePanel');
+      const overlay = document.getElementById('gamePanelOverlay');
+      const title = document.getElementById('gamePanelTitle');
+      const frame = document.getElementById('gameFrame');
+      const loader = document.getElementById('gamePanelLoader');
+
+      title.textContent = gameName;
+
+      // Show loader
+      loader.classList.remove('hidden');
+
+      // Set iframe src
+      frame.src = gameUrl;
+
+      // Hide loader when iframe loads
+      frame.onload = function () {
+        setTimeout(() => {
+          loader.classList.add('hidden');
+        }, 300);
+      };
+
+      // Listen for progress updates from VidLink player
+      window.addEventListener('message', (event) => {
+        if (event.origin !== 'https://vidlink.pro') return;
+        if (event.data?.type === 'MEDIA_DATA' || event.data?.currentTime) {
+          localStorage.setItem(gameName + 'Progress', JSON.stringify({
+            currentTime: event.data.currentTime || event.data.data?.currentTime,
+            duration: event.data.duration || event.data.data?.duration
+          }));
+        }
+      });
+
+      // Load saved progress if exists
+      const saved = localStorage.getItem(gameName + 'Progress');
+      if (saved) {
+        const data = JSON.parse(saved);
+        if (data.currentTime) {
+          frame.src += (frame.src.includes('?') ? '&' : '?') + 'startAt=' + Math.floor(data.currentTime);
+        }
+      }
+
+      // Show panel
+      panel.classList.add('active');
+      overlay.classList.add('active');
+
+      // Prevent body scroll when panel is open
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeGamePanel() {
+      const panel = document.getElementById('gamePanel');
+      const overlay = document.getElementById('gamePanelOverlay');
+      const frame = document.getElementById('gameFrame');
+
+      panel.classList.remove('active');
+      overlay.classList.remove('active');
+      frame.src = '';
+
+      // Restore body scroll
+      document.body.style.overflow = 'auto';
+    }
+
+    loadGames();
+
+    /* ========= SETTINGS SYSTEM ========= */
+    const settings = {
+      animationEnabled: localStorage.getItem('animationEnabled') !== 'false',
+      theme: localStorage.getItem('theme') || 'theme-bw',
+      urlSpoof: localStorage.getItem('urlSpoof') || '',
+      lowQuality: localStorage.getItem('lowQuality') === 'true'
+    };
+
+    function applySetting(key, value) {
+      if (key === 'animationEnabled') {
+        document.body.classList.toggle('animations-disabled', !value);
+        document.body.classList.toggle('grid-bg', !value);
+      } else if (key === 'theme') {
+        document.body.className = document.body.className.replace(/theme-\w+/, value);
+        document.body.classList.add(value);
+        localStorage.setItem(key, value);
+      }
+    }
+
+    function initializeSettings() {
+      document.body.classList.add(settings.theme);
+      if (!settings.animationEnabled) {
+        document.body.classList.add('animations-disabled');
+        document.body.classList.add('grid-bg');
+      }
+    }
+
+    initializeSettings();
+
+    /* ========= SEARCH FUNCTIONALITY ========= */
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input', (e) => {
+      loadGames(e.target.value);
+    });
+
+    /* ========= GAME PANEL CONTROLS ========= */
+    const gamePanelClose = document.getElementById('gamePanelClose');
+    const gamePanelOverlay = document.getElementById('gamePanelOverlay');
+    const gamePanelFullscreen = document.getElementById('gamePanelFullscreen');
+    const gameFrameElem = document.getElementById('gameFrame');
+
+    gamePanelClose.addEventListener('click', closeGamePanel);
+    gamePanelOverlay.addEventListener('click', closeGamePanel);
+
+    if (gamePanelFullscreen) {
+      gamePanelFullscreen.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+          if (gameFrameElem.requestFullscreen) {
+            gameFrameElem.requestFullscreen();
+          } else if (gameFrameElem.webkitRequestFullscreen) { /* Safari */
+            gameFrameElem.webkitRequestFullscreen();
+          } else if (gameFrameElem.msRequestFullscreen) { /* IE11 */
+            gameFrameElem.msRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) { /* Safari */
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) { /* IE11 */
+            document.msExitFullscreen();
+          }
+        }
+      });
+    }
+
+    // Close panel with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeGamePanel();
+      }
+    });
+
+    /* ========= PARTICLES (respects saved particleType) ========= */
+    (function () {
+      const savedAnim = localStorage.getItem('animationEnabled') !== 'false';
+      if (!savedAnim) return;
+      const type = localStorage.getItem('particleType') || 'snow';
+      const canvas = document.getElementById('bgCanvas');
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = innerWidth, H = canvas.height = innerHeight;
+      window.addEventListener('resize', () => { W = canvas.width = innerWidth; H = canvas.height = innerHeight; });
+      if (type === 'snow') {
+        const flakes = Array.from({ length: 120 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 3 + 1, d: Math.random() }));
+        let a = 0;
+        (function draw() { ctx.clearRect(0, 0, W, H); ctx.fillStyle = 'rgba(255,255,255,0.85)'; ctx.beginPath(); for (const f of flakes) { ctx.moveTo(f.x, f.y); ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2); } ctx.fill(); a += 0.01; for (const f of flakes) { f.y += Math.pow(f.d, 2) + 0.8; f.x += Math.sin(a) * 0.4; if (f.y > H) { f.y = 0; f.x = Math.random() * W; } } requestAnimationFrame(draw); })();
+      } else if (type === 'stars') {
+        const s = Array.from({ length: 180 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.6 + 0.3, tw: Math.random() * Math.PI * 2, sp: Math.random() * 0.015 + 0.003 }));
+        (function draw() { ctx.clearRect(0, 0, W, H); for (const st of s) { st.tw += st.sp; ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255,255,255,${0.4 + 0.6 * Math.abs(Math.sin(st.tw))})`; ctx.fill(); } requestAnimationFrame(draw); })();
+      } else if (type === 'rain') {
+        const d = Array.from({ length: 100 }, () => ({ x: Math.random() * W, y: Math.random() * H, len: Math.random() * 18 + 8, sp: Math.random() * 8 + 6 }));
+        (function draw() { ctx.clearRect(0, 0, W, H); ctx.strokeStyle = 'rgba(150,200,255,0.55)'; ctx.lineWidth = 1; for (const dr of d) { ctx.beginPath(); ctx.moveTo(dr.x, dr.y); ctx.lineTo(dr.x - 2, dr.y + dr.len); ctx.stroke(); dr.y += dr.sp; if (dr.y > H) { dr.y = -dr.len; dr.x = Math.random() * W; } } requestAnimationFrame(draw); })();
+      } else if (type === 'bubbles') {
+        const b = Array.from({ length: 55 }, () => ({ x: Math.random() * W, y: H + Math.random() * H, r: Math.random() * 18 + 6, sp: Math.random() * 1.2 + 0.4, w: Math.random() * Math.PI * 2 }));
+        canvas.addEventListener('click', e => { const mx = e.clientX, my = e.clientY; for (const bub of b) { if (Math.hypot(mx - bub.x, my - bub.y) < bub.r + 10) { bub.y = H + bub.r; bub.x = Math.random() * W; } } });
+        (function draw() { ctx.clearRect(0, 0, W, H); for (const bub of b) { bub.w += 0.015; bub.y -= bub.sp; bub.x += Math.sin(bub.w) * 0.6; if (bub.y < -bub.r * 2) { bub.y = H + bub.r; bub.x = Math.random() * W; } ctx.beginPath(); ctx.arc(bub.x, bub.y, bub.r, 0, Math.PI * 2); ctx.strokeStyle = 'rgba(180,130,255,0.45)'; ctx.lineWidth = 1.5; ctx.stroke(); const g = ctx.createRadialGradient(bub.x - bub.r * .3, bub.y - bub.r * .3, 1, bub.x, bub.y, bub.r); g.addColorStop(0, 'rgba(220,190,255,0.12)'); g.addColorStop(1, 'rgba(160,80,255,0.04)'); ctx.fillStyle = g; ctx.fill(); } requestAnimationFrame(draw); })();
+      } else if (type === 'embers') {
+        const e = Array.from({ length: 90 }, () => ({ x: Math.random() * W, y: H + Math.random() * H, r: Math.random() * 2.5 + 0.5, sp: Math.random() * 2 + 0.8, w: Math.random() * Math.PI * 2, l: Math.random() }));
+        (function draw() { ctx.clearRect(0, 0, W, H); for (const em of e) { em.w += 0.04; em.y -= em.sp; em.x += Math.sin(em.w) * 1.1; em.l -= 0.003; if (em.y < 0 || em.l <= 0) { em.y = H; em.x = Math.random() * W; em.l = 1; } ctx.beginPath(); ctx.arc(em.x, em.y, em.r, 0, Math.PI * 2); ctx.fillStyle = `rgba(255,${Math.floor(100 + 80 * em.l)},20,${Math.max(0, em.l)})`; ctx.fill(); } requestAnimationFrame(draw); })();
+      } else if (type === 'matrix') {
+        const fs = 14, cols = Math.floor(W / fs), drops = Array(cols).fill(1);
+        const chars = 'アイウエオカキクケコ01ﾊﾋﾌﾍﾎ'.split('');
+        let frame = 0;
+        (function draw() { frame++; if (frame % 3 !== 0) { requestAnimationFrame(draw); return; } ctx.fillStyle = 'rgba(0,0,0,0.07)'; ctx.fillRect(0, 0, W, H); ctx.fillStyle = '#0f0'; ctx.font = fs + 'px monospace'; for (let i = 0; i < drops.length; i++) { ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs); if (drops[i] * fs > H && Math.random() > 0.975) drops[i] = 0; drops[i]++; } requestAnimationFrame(draw); })();
+      } else if (type === 'grid') {
+        let mx = -999, my = -999;
+        canvas.style.pointerEvents = 'none';
+        window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+        const CELL = 40;
+        (function draw() { ctx.clearRect(0, 0, W, H); const cols2 = Math.ceil(W / CELL) + 1, rows = Math.ceil(H / CELL) + 1; for (let r = 0; r < rows; r++) { for (let c = 0; c < cols2; c++) { const cx = c * CELL, cy = r * CELL, dist = Math.hypot(cx - mx, cy - my), glow = Math.max(0, 1 - dist / 180); ctx.strokeStyle = `rgba(${80 + Math.round(glow * 175)},${80 + Math.round(glow * 175)},${80 + Math.round(glow * 175)},${0.18 + glow * 0.55})`; ctx.lineWidth = 0.5 + glow * 1.5; ctx.strokeRect(cx, cy, CELL, CELL); } } requestAnimationFrame(draw); })();
+      } else if (type === 'banner') {
+        document.body.classList.add('banner-bg');
+        canvas.style.display = 'none';
+      } else if (type === 'none') {
+        canvas.style.display = 'none';
+      }
+    })();
+
+    // Failover banner display when redirected from failover manager
+    (function () {
+      function showFailoverBannerIfNeeded() {
+        const p = new URLSearchParams(location.search);
+        if (p.get('fail') === 'true') {
+          const from = p.get('from') || 'primary';
+          const time = p.get('time') ? new Date(p.get('time')).toLocaleString() : '';
+          const reason = p.get('reason') || 'unreachable';
+          const banner = document.getElementById('failoverBannerGames');
+          if (!banner) return;
+          banner.innerHTML = `<div><strong>Notice:</strong> Previous site (${from}) is down (${reason}). Switched to this site. <small>As of ${time}</small></div>`;
+          banner.style.display = 'block';
+          document.body.style.paddingTop = '56px';
+        }
+      }
+      showFailoverBannerIfNeeded();
+    })();
+  </script>
+
+</body>
+
+</html>
