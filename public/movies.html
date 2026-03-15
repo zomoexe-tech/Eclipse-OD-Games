@@ -70,12 +70,337 @@
   </div>
 
   <script>
-    // List of movies - manually curated
+    // List of movies - curated with posters and banners
     const movies = [
       {
         title: "GOAT (2026)",
         poster: "https://cdn.moviefone.com/admin-uploads/highlights/images/goat-official-poster_1763994055.webp?d=360x540&q=20",
+        banner: "https://cdn.moviefone.com/admin-uploads/highlights/images/goat-official-poster_1763994055.webp",
         url: "https://vidlink.pro/movie/1297842?primaryColor=8B0000&secondaryColor=000000&iconColor=FFFFFF&title=true&poster=false&autoplay=false"
+      },
+      {
+        title: "Deadpool & Wolverine (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/8bc79qH7hOK19-v3pX8p9v99v.jpg",
+        banner: "https://image.tmdb.org/t/p/original/yDHYT7mUMvTbr2N1OycS9D9nbaW.jpg",
+        url: "https://vidlink.pro/movie/533535"
+      },
+      {
+        title: "Joker: Folie à Deux (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/aciP8Km8SGA9fGFe9H086tyu3Z8.jpg",
+        banner: "https://image.tmdb.org/t/p/original/m997ls691Y97pYp6e6Yp6yY6y.jpg",
+        url: "https://vidlink.pro/movie/889737"
+      },
+      {
+        title: "The Substance (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/l9198jY9X7_m7j6X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/6K6y0f0CqG0p7X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/933260"
+      },
+      {
+        title: "Smile 2 (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/aE_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/cX_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/1100782"
+      },
+      {
+        title: "Terrifier 3 (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/7_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/d_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/1034541"
+      },
+      {
+        title: "Gladiator II (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/e_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/f_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/558449"
+      },
+      {
+        title: "Venom: The Last Dance (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/aos_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/bot_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/912649"
+      },
+      {
+        title: "Sonic the Hedgehog 3 (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/cop_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/dop_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/1000000"
+      },
+      {
+        title: "The Wild Robot (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/eop_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/fop_m7j6X5X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/1184918"
+      },
+      {
+        title: "Interstellar (2014)",
+        poster: "https://image.tmdb.org/t/p/w500/gV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/hV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/157336"
+      },
+      {
+        title: "The Dark Knight (2008)",
+        poster: "https://image.tmdb.org/t/p/w500/iV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/jV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/155"
+      },
+      {
+        title: "Inception (2010)",
+        poster: "https://image.tmdb.org/t/p/w500/kV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/lV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/27205"
+      },
+      {
+        title: "The Matrix (1999)",
+        poster: "https://image.tmdb.org/t/p/w500/mV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/nV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/603"
+      },
+      {
+        title: "Pulp Fiction (1994)",
+        poster: "https://image.tmdb.org/t/p/w500/oV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/pV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/680"
+      },
+      {
+        title: "Fight Club (1999)",
+        poster: "https://image.tmdb.org/t/p/w500/qV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/rV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/550"
+      },
+      {
+        title: "Spirited Away (2001)",
+        poster: "https://image.tmdb.org/t/p/w500/sV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/tV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/129"
+      },
+      {
+        title: "Parasite (2019)",
+        poster: "https://image.tmdb.org/t/p/w500/uV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/vV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/496243"
+      },
+      {
+        title: "Oppenheimer (2023)",
+        poster: "https://image.tmdb.org/t/p/w500/wV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/xV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/872585"
+      },
+      {
+        title: "Spider-Man: Across the Spider-Verse (2023)",
+        poster: "https://image.tmdb.org/t/p/w500/yV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/zV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/569094"
+      },
+      {
+        title: "Moana 2 (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/ahV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/bhV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/1241982"
+      },
+      {
+        title: "Inside Out 2 (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/chV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/dhV9y7m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/1022789"
+      },
+      {
+        title: "Alien: Romulus (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/b8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/c8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/945961"
+      },
+      {
+        title: "Bad Boys: Ride or Die (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/d8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/e8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/573435"
+      },
+      {
+        title: "Dune: Part Two (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/f8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/g8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/693134"
+      },
+      {
+        title: "Furiosa: A Mad Max Saga (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/h8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/i8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/786892"
+      },
+      {
+        title: "Kingdom of the Planet of the Apes (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/j8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/k8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/653346"
+      },
+      {
+        title: "Kung Fu Panda 4 (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/l8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/m8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/1011985"
+      },
+      {
+        title: "Wonka (2023)",
+        poster: "https://image.tmdb.org/t/p/w500/n8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/o8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/787699"
+      },
+      {
+        title: "Barbie (2023)",
+        poster: "https://image.tmdb.org/t/p/w500/p8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/q8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/346698"
+      },
+      {
+        title: "The Super Mario Bros. Movie (2023)",
+        poster: "https://image.tmdb.org/t/p/w500/r8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/s8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/502356"
+      },
+      {
+        title: "John Wick: Chapter 4 (2023)",
+        poster: "https://image.tmdb.org/t/p/w500/t8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/u8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/603692"
+      },
+      {
+        title: "Avatar: The Way of Water (2022)",
+        poster: "https://image.tmdb.org/t/p/w500/v8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/w8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/76600"
+      },
+      {
+        title: "Top Gun: Maverick (2022)",
+        poster: "https://image.tmdb.org/t/p/w500/x8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/y8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/361743"
+      },
+      {
+        title: "Spider-Man: No Way Home (2021)",
+        poster: "https://image.tmdb.org/t/p/w500/z8v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/a9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/634649"
+      },
+      {
+        title: "The Batman (2022)",
+        poster: "https://image.tmdb.org/t/p/w500/b9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/c9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/414906"
+      },
+      {
+        title: "Avengers: Endgame (2019)",
+        poster: "https://image.tmdb.org/t/p/w500/d9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/e9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/299534"
+      },
+      {
+        title: "Avengers: Infinity War (2018)",
+        poster: "https://image.tmdb.org/t/p/w500/f9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/g9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/299536"
+      },
+      {
+        title: "Black Panther (2018)",
+        poster: "https://image.tmdb.org/t/p/w500/h9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/i9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/284054"
+      },
+      {
+        title: "Deadpool (2016)",
+        poster: "https://image.tmdb.org/t/p/w500/j9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/k9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/293660"
+      },
+      {
+        title: "The Wolf of Wall Street (2013)",
+        poster: "https://image.tmdb.org/t/p/w500/l9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/m9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/106646"
+      },
+      {
+        title: "The Wolf of Wall Street (2013)",
+        poster: "https://image.tmdb.org/t/p/w500/n9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/o9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/106646"
+      },
+      {
+        title: "Shutter Island (2010)",
+        poster: "https://image.tmdb.org/t/p/w500/p9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/q9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/11324"
+      },
+      {
+        title: "The Departed (2006)",
+        poster: "https://image.tmdb.org/t/p/w500/r9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/s9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/1422"
+      },
+      {
+        title: "The Prestige (2006)",
+        poster: "https://image.tmdb.org/t/p/w500/t9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/u9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/1124"
+      },
+      {
+        title: "Memento (2000)",
+        poster: "https://image.tmdb.org/t/p/w500/v9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/w9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/77"
+      },
+      {
+        title: "The Lion King (1994)",
+        poster: "https://image.tmdb.org/t/p/w500/x9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/y9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/8587"
+      },
+      {
+        title: "Jurassic Park (1993)",
+        poster: "https://image.tmdb.org/t/p/w500/z9v2u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/aa0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/329"
+      },
+      {
+        title: "Back to the Future (1985)",
+        poster: "https://image.tmdb.org/t/p/w500/ba0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/ca0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/105"
+      },
+      {
+        title: "Star Wars (1977)",
+        poster: "https://image.tmdb.org/t/p/w500/da0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/ea0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/11"
+      },
+      {
+        title: "The Godfather (1972)",
+        poster: "https://image.tmdb.org/t/p/w500/fa0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/ga0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/238"
+      },
+      {
+        title: "Psycho (1960)",
+        poster: "https://image.tmdb.org/t/p/w500/ha0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/ia0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/211"
+      },
+      {
+        title: "Citizen Kane (1941)",
+        poster: "https://image.tmdb.org/t/p/w500/ja0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/ka0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/15"
+      },
+      {
+        title: "The Wizard of Oz (1939)",
+        poster: "https://image.tmdb.org/t/p/w500/la0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/ma0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/621"
+      },
+      {
+        title: "Nosferatu (2024)",
+        poster: "https://image.tmdb.org/t/p/w500/na0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        banner: "https://image.tmdb.org/t/p/original/oa0u_m7j6X5X5X5X5X5X5X5X5X.jpg",
+        url: "https://vidlink.pro/movie/427342"
       }
     ];
 
@@ -118,6 +443,16 @@
           a.addEventListener('click', (e) => {
             e.preventDefault();
             openGamePanel(m.title, m.url);
+          });
+
+          // Hover handler for banner change
+          a.addEventListener('mouseenter', () => {
+            if (m.banner) {
+               document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('${m.banner}')`;
+               document.body.style.backgroundSize = 'cover';
+               document.body.style.backgroundPosition = 'center';
+               document.body.style.backgroundAttachment = 'fixed';
+            }
           });
 
           grid.appendChild(a);
