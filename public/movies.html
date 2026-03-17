@@ -7,6 +7,28 @@
   <title>Eclipse Movies</title>
   <link rel="stylesheet" href="assets/css/site.css">
   <script src="assets/js/movies.js"></script>
+  <script>
+    // Popup Blocker & Anti-Redirect Injection
+    (function () {
+      const originalOpen = window.open;
+      window.open = function (url, name, specs) {
+        console.warn('Blocked popup attempt to:', url);
+        return {
+          closed: true,
+          close: function () { },
+          focus: function () { },
+          blur: function () { },
+          postMessage: function () { }
+        };
+      };
+
+      // Prevent top-level redirects from iframes
+      window.onbeforeunload = function () {
+        // If the redirect is not from a user-initiated internal link, we could warn
+        // But for a cleaner experience, let's just log and rely on the sandbox attribute.
+      };
+    })();
+  </script>
 </head>
 
 <body>
@@ -59,7 +81,9 @@
         <div style="color: #ffffff; font-size: 14px; margin-top: 16px;">Loading movie...</div>
       </div>
       <iframe id="gameFrame" src=""
+        sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin"
         allow="autoplay *; fullscreen *; accelerometer *; camera *; gyroscope *; magnetometer *; microphone *; usb *; xr-spatial-tracking *"></iframe>
+      <video id="gameVideo" controls style="display: none; width: 100%; height: 100%; max-height: 80vh; border: none; border-radius: 8px; background: #000; outline: none;"></video>
     </div>
     <div class="game-panel-header">
       <h2 class="game-panel-title" id="gamePanelTitle">Movie</h2>
@@ -154,6 +178,7 @@
       const overlay = document.getElementById('gamePanelOverlay');
       const title = document.getElementById('gamePanelTitle');
       const frame = document.getElementById('gameFrame');
+      const video = document.getElementById('gameVideo');
       const loader = document.getElementById('gamePanelLoader');
 
       title.textContent = gameName;
@@ -161,15 +186,34 @@
       // Show loader
       loader.classList.remove('hidden');
 
-      // Set iframe src
-      frame.src = gameUrl;
-
-      // Hide loader when iframe loads
-      frame.onload = function () {
-        setTimeout(() => {
+      // Support for local video files
+      if (gameUrl.endsWith('.mp4') || gameUrl.endsWith('.webm') || gameUrl.endsWith('.mkv')) {
+        frame.style.display = 'none';
+        video.style.display = 'block';
+        video.src = gameUrl;
+        
+        video.onloadeddata = function() {
           loader.classList.add('hidden');
-        }, 300);
-      };
+        };
+        video.onerror = function() {
+          loader.classList.add('hidden');
+          title.textContent = gameName + " (File not found!)";
+        };
+        video.play().catch(e => console.log("Auto-play prevented"));
+      } else {
+        video.style.display = 'none';
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+        
+        frame.style.display = 'block';
+        frame.src = gameUrl;
+        frame.onload = function () {
+          setTimeout(() => {
+            loader.classList.add('hidden');
+          }, 300);
+        };
+      }
 
       // Listen for progress updates from VidLink player
       window.addEventListener('message', (event) => {
@@ -203,10 +247,16 @@
       const panel = document.getElementById('gamePanel');
       const overlay = document.getElementById('gamePanelOverlay');
       const frame = document.getElementById('gameFrame');
+      const video = document.getElementById('gameVideo');
 
       panel.classList.remove('active');
       overlay.classList.remove('active');
       frame.src = '';
+      if (video) {
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+      }
 
       // Restore body scroll
       document.body.style.overflow = 'auto';
@@ -260,13 +310,16 @@
 
     if (gamePanelFullscreen) {
       gamePanelFullscreen.addEventListener('click', () => {
+        const videoElem = document.getElementById('gameVideo');
+        const targetElem = (videoElem && videoElem.style.display === 'block') ? videoElem : gameFrameElem;
+        
         if (!document.fullscreenElement) {
-          if (gameFrameElem.requestFullscreen) {
-            gameFrameElem.requestFullscreen();
-          } else if (gameFrameElem.webkitRequestFullscreen) { /* Safari */
-            gameFrameElem.webkitRequestFullscreen();
-          } else if (gameFrameElem.msRequestFullscreen) { /* IE11 */
-            gameFrameElem.msRequestFullscreen();
+          if (targetElem.requestFullscreen) {
+            targetElem.requestFullscreen();
+          } else if (targetElem.webkitRequestFullscreen) { /* Safari */
+            targetElem.webkitRequestFullscreen();
+          } else if (targetElem.msRequestFullscreen) { /* IE11 */
+            targetElem.msRequestFullscreen();
           }
         } else {
           if (document.exitFullscreen) {

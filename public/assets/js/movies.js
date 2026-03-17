@@ -103,7 +103,9 @@ const movies = [
   ...m,
   poster: `https://image.tmdb.org/t/p/w500/${m.id}.jpg`, // TMDB poster path fallbacks often use IDs for simple mockups
   banner: `https://image.tmdb.org/t/p/original/${m.id}.jpg`,
-  url: `https://vidlink.pro/movie/${m.id}`
+  // Play from a local 'assets/movies/' folder
+  // Replaces colons and other invalid file characters so you can name your files properly
+  url: `assets/movies/${m.title.replace(/[:\/\\?%*|"<>]/g, '')}.mp4`
 }));
 
 // Actual image paths are better, but since I don't have all 1000 actual paths, 
