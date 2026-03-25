@@ -60,6 +60,7 @@ function injectSidebar() {
     sidebar.innerHTML = `
         <nav class="sidebar-nav">
             <a href="games.html" class="${currentPage === 'games.html' ? 'active' : ''}">GAMES</a>
+            <a href="apps.html" class="${currentPage === 'apps.html' ? 'active' : ''}">APPS</a>
             <a href="movies.html" class="${currentPage === 'movies.html' ? 'active' : ''}">MOVIES</a>
             <a href="shows.html" class="${currentPage === 'shows.html' ? 'active' : ''}">SHOWS</a>
             <a href="settings.html" class="${currentPage === 'settings.html' ? 'active' : ''}">SETTINGS</a>
