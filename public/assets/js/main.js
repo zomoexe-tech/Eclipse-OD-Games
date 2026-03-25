@@ -111,6 +111,33 @@ function initialize() {
     
     const canvas = document.getElementById('bgCanvas');
     if (canvas) ParticleEngine.init(canvas);
+
+    // Apply Tab Cloak on load
+    applyTabCloak();
+}
+
+function applyTabCloak() {
+    const cloak = localStorage.getItem('tabCloak') || 'off';
+    const presets = {
+        'off': { title: 'Eclipse Games', icon: 'assets/appicons/favicon.ico' },
+        'google': { title: 'Google', icon: 'https://www.google.com/favicon.ico' },
+        'drive': { title: 'My Drive - Google Drive', icon: 'https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png' },
+        'docs': { title: 'Google Docs', icon: 'https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico' },
+        'slides': { title: 'Google Slides', icon: 'https://ssl.gstatic.com/docs/presentations/images/favicon5.ico' },
+        'canvas': { title: 'Dashboard', icon: 'https://du11hjcvx0uqb.cloudfront.net/dist/images/favicon-e10d657a73.ico' },
+        'schoology': { title: 'Home | Schoology', icon: 'https://app.schoology.com/sites/all/themes/schoology_theme/favicon.ico' }
+    };
+
+    const preset = presets[cloak] || presets['off'];
+    document.title = preset.title;
+
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+        link = document.createElement('link');
+        link.rel = 'icon';
+        document.head.appendChild(link);
+    }
+    link.href = preset.icon;
 }
 
 async function resolveImagePath(name, type = 'game') {
@@ -188,8 +215,6 @@ const ParticleEngine = (function() {
         else if (type === 'rain') initRain();
         else if (type === 'bubbles') initBubbles();
         else if (type === 'embers') initEmbers();
-        else if (type === 'matrix') initMatrix();
-        else if (type === 'grid') initGrid();
         else if (type === 'banner') document.body.classList.add('banner-bg');
     }
 
@@ -270,38 +295,6 @@ const ParticleEngine = (function() {
         draw();
     }
 
-    function initMatrix() {
-        const fs = 14, cols = Math.floor(W / fs), drops = Array(cols).fill(1), chars = '01'.split('');
-        function draw() {
-            ctx.fillStyle = 'rgba(0,0,0,0.08)'; ctx.fillRect(0, 0, W, H);
-            ctx.fillStyle = '#0f0'; ctx.font = fs + 'px monospace';
-            for (let i = 0; i < drops.length; i++) {
-                ctx.fillText(chars[Math.floor(Math.random() * chars.length)], i * fs, drops[i] * fs);
-                if (drops[i] * fs > H && Math.random() > 0.98) drops[i] = 0;
-                drops[i]++;
-            }
-            animId = requestAnimationFrame(draw);
-        }
-        draw();
-    }
-
-    function initGrid() {
-        let mx = -999, my = -999;
-        window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-        const CELL = 40;
-        function draw() {
-            ctx.clearRect(0, 0, W, H);
-            for (let r = 0; r < H / CELL; r++) {
-                for (let c = 0; c < W / CELL; c++) {
-                    const cx = c * CELL, cy = r * CELL, d = Math.hypot(cx - mx, cy - my), g = Math.max(0, 1 - d / 150);
-                    ctx.strokeStyle = `rgba(255,255,255,${0.1 + g * 0.4})`;
-                    ctx.strokeRect(cx, cy, CELL, CELL);
-                }
-            }
-            animId = requestAnimationFrame(draw);
-        }
-        draw();
-    }
 
     return { init };
 })();

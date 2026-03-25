@@ -52,8 +52,6 @@
                   <option value="snow">Snow</option>
                   <option value="bubbles">Bubbles</option>
                   <option value="embers">Embers</option>
-                  <option value="matrix">Matrix</option>
-                  <option value="grid">Grid</option>
                   <option value="none">None</option>
                 </select>
                 <div class="settings-actions" style="margin-top:14px;">
@@ -97,6 +95,24 @@
                   <button class="s-btn danger" onclick="resetTheme()">Reset</button>
                 </div>
               </div>
+
+              <!-- Tab Cloaker Card -->
+              <div class="settings-card">
+                <div class="settings-card-header"><div class="settings-card-title">Tab Cloaker</div></div>
+                <p class="settings-card-desc">Hide the site by changing the tab name and icon to look like school work.</p>
+                <select id="cloakSelect" class="settings-select" onchange="saveCloak()">
+                  <option value="off">Off (Default)</option>
+                  <option value="google">Google</option>
+                  <option value="drive">Google Drive</option>
+                  <option value="docs">Google Docs</option>
+                  <option value="slides">Google Slides</option>
+                  <option value="canvas">Canvas</option>
+                  <option value="schoology">Schoology</option>
+                </select>
+                <div class="settings-actions" style="margin-top:14px;">
+                  <button class="s-btn accent" onclick="saveCloak()">Apply Cloak</button>
+                </div>
+              </div>
             </div>
           </div>
         </main>
@@ -120,6 +136,7 @@
     document.getElementById('themeSelect').value = settings.theme;
     document.getElementById('colorSelect').value = localStorage.getItem('selectedColor') || '';
     document.getElementById('particleSelect').value = settings.particleType;
+    document.getElementById('cloakSelect').value = localStorage.getItem('tabCloak') || 'off';
 
     function openInAboutBlank() {
       const win = window.open();
@@ -148,6 +165,12 @@
     function resetTheme() {
       localStorage.clear();
       location.reload();
+    }
+
+    function saveCloak() {
+      const cloak = document.getElementById('cloakSelect').value;
+      localStorage.setItem('tabCloak', cloak);
+      applyTabCloak(); // Re-apply immediately
     }
   </script>
 
