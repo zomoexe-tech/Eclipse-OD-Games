@@ -8,14 +8,14 @@ const apps = [
   },
   {
     "name": "ChatGPT Clone",
-    "url": "https://chat.shuttleai.app/",
+    "url": "https://108.181.5.242/__cpi.php?s=UkQ2YXlSaWJuc3ZoeGR2dG04WW9LbXlLV0dlYmVwMElCR1FJL2M0UEdqUlM4NE15WnQrNno2ZVZTa253NXdCQ2JCMVZHMzJPekYwTmwyekl5clJZZjF4Ykl2TWl3cnpqQU1qZEhyNENVU0k9&r=aHR0cHM6Ly8xMDguMTgxLjUuMjQyLz9fX2Nwbz1hSFIwY0hNNkx5OWphR0YwWjNCMExtTnZiUQ%3D%3D&__cpo=1",
     "icon": "assets/appicons/chatgpt.webp",
     "categories": ["all", "AI"],
     "blank": false
   },
   {
     "name": "Flix HQ",
-    "url": "https://flixhq.to",
+    "url": "https://108.181.12.46/__cpi.php?s=UkQ2YXlSaWJuc3ZoeGR2dG04WW9LdkVJMzJyMEpuWkJ1QWx4TTk3aE5SRHc0eUtFQmpMZlF3QnZLRVhaL0dBb3cxMXBjcWtFUEVUYUxSWW1VaEdzazZ3SHVxL2taMnBsOUpyVm1yODlxUlU9&r=aHR0cHM6Ly8xMDguMTgxLjEyLjQ2L2hvbWU%2FX19jcG89YUhSMGNITTZMeTltYkdsNGFIRXVkRzg%3D&__cpo=1",
     "icon": "assets/appicons/flixhq.webp",
     "categories": ["all", "media"],
     "blank": false
@@ -71,14 +71,14 @@ const apps = [
   },
   {
     "name": "Sudo-Flix.Lol",
-    "url": "https://sudo-flix.lol/",
+    "url": "https://208.87.240.67/__cpi.php?s=UkQ2YXlSaWJuc3ZoeGR2dG04WW9LdTkzQy9xYzdLbDBLbkcvMjgrOWsxTy9Pa2E4OTRUYlBMUHNsa3ArcVJQQW9ROFBhV08relRGODVWQ2RzQmNNaVYzVVZSaUl5SVZkaEhxUTIyS24yaTg9&r=aHR0cHM6Ly8yMDguODcuMjQwLjY3Lz9fX2Nwbz1hSFIwY0hNNkx5OXpiVzkyTFdacGRtVXVkbVZ5WTJWc0xtRndjQQ%3D%3D&__cpo=1",
     "icon": "assets/appicons/MW.png",
     "categories": ["all", "media"],
     "blank": false
   },
   {
     "name": "TikTok (Proxy)",
-    "url": "https://108.181.33.119/explore?__cpo=aHR0cHM6Ly93d3cudGlrdG9rLmNvbQ",
+    "url": "https://108.181.5.51/__cpi.php?s=UkQ2YXlSaWJuc3ZoeGR2dG04WW9LZ3hwMFRQVTY1ckx6WHU3Z2tabHZkWE81R00xdFROT2p4ejZ2b0ZHNXpoVzEvREhyeGRTWEpzdmlFQ3JlL1NTMmxHN2VaYjlXZkErWjhjbThBVy93ODA9&r=aHR0cHM6Ly8xMDguMTgxLjUuNTEvZXhwbG9yZT9fX2Nwbz1hSFIwY0hNNkx5OTNkM2N1ZEdscmRHOXJMbU52YlE%3D&__cpo=1",
     "icon": "assets/appicons/tiktok.webp",
     "categories": ["all", "social"],
     "blank": false,
@@ -93,7 +93,7 @@ const apps = [
   },
   {
     "name": "YouTube (Proxy)",
-    "url": "https://108.181.11.193/?themeRefresh=1&__cpo=aHR0cHM6Ly93d3cueW91dHViZS5jb20",
+    "url": "https://108.181.11.39/__cpi.php?s=UkQ2YXlSaWJuc3ZoeGR2dG04WW9Lb2dJYURCUTBZYkdsSU5mUmpxSkpSRFQxK3RSbTRsWk4vQytHcmVrV0VleXAzOHJrUzhDN21Sa0JFV0JoZEVOWWxVSzFPWENUbWdTNTdLSWZGeTAvNkE9&r=aHR0cHM6Ly8xMDguMTgxLjExLjM5Lz90aGVtZVJlZnJlc2g9MSZfX2Nwbz1hSFIwY0hNNkx5OTNkM2N1ZVc5MWRIVmlaUzVqYjIw&__cpo=1",
     "icon": "assets/appicons/youtube.webp",
     "categories": ["all", "stream"],
     "blank": false,

@@ -25,64 +25,79 @@
       <div class="quantum-body">
         <aside class="sidebar"></aside>
         <main class="quantum-panel">
-          <div class="settings-page-container main-content">
-    <h1 class="settings-page-title">Settings</h1>
-    <div class="settings-card">
-      <div class="settings-card-header"><div class="settings-card-title">Blanker</div></div>
-      <p class="settings-card-desc">Opens the site inside an <code style="background:rgba(255,255,255,0.08);padding:1px 6px;border-radius:4px;font-size:12px;">about:blank</code> popup window.</p>
-      <div class="settings-actions"><button class="s-btn accent" onclick="openInAboutBlank()">Open Blank Tab</button></div>
-    </div>
-    <div class="settings-card">
-      <div class="settings-card-header"><div class="settings-card-title">Animations</div></div>
-      <p class="settings-card-desc">Turn off all particle effects for better performance.</p>
-      <div class="toggle-row">
-        <label class="toggle-switch"><input type="checkbox" id="animToggle" onchange="saveAnimations()"><span class="toggle-slider"></span></label>
-        <span class="toggle-label" id="animLabel">Enabled</span>
-      </div>
-    </div>
-    <div class="settings-card">
-      <div class="settings-card-header"><div class="settings-card-title">Background Changer</div></div>
-      <p class="settings-card-desc">Choose a particle effect for the background.</p>
-      <select id="particleSelect" class="settings-select">
-        <option value="snow">Snow</option>
-        <option value="stars">Stars</option>
-        <option value="rain">Rain</option>
-        <option value="bubbles">Bubbles</option>
-        <option value="embers">Embers</option>
-        <option value="matrix">Matrix</option>
-        <option value="grid">Grid</option>
-        <option value="none">None</option>
-      </select>
-      <div class="settings-actions" style="margin-top:14px;"><button class="s-btn accent" onclick="saveParticle()">Apply Background</button></div>
-    </div>
-    <div class="settings-card">
-      <div class="settings-card-header"><div class="settings-card-title">Theme</div></div>
-      <p class="settings-card-desc">Choose a color theme for the entire site.</p>
-      <select id="themeSelect" class="settings-select">
-        <option value="theme-bw">Black &amp; White</option>
-        <option value="theme-dark">Dark Original</option>
-        <option value="theme-neon">Neon</option>
-        <option value="theme-sunset">Sunset</option>
-        <option value="theme-ocean">Ocean</option>
-        <option value="theme-forest">Forest</option>
-      </select>
-      <label style="font-size:13px;color:#9ca3af;display:block;margin-bottom:4px;margin-top:14px;">Accent color:</label>
-      <select id="colorSelect" class="settings-select">
-        <option value="">Default</option>
-        <option value="red">Red</option>
-        <option value="blue">Blue</option>
-        <option value="green">Green</option>
-        <option value="purple">Purple</option>
-        <option value="orange">Orange</option>
-        <option value="pink">Pink</option>
-        <option value="cyan">Cyan</option>
-        <option value="yellow">Yellow</option>
-      </select>
-      <div class="settings-actions">
-        <button class="s-btn accent" onclick="applyTheme()">Apply Theme</button>
-        <button class="s-btn danger" onclick="resetTheme()">Reset</button>
-      </div>
-    </div>
+          <div class="games-container main-content" style="padding-top:20px;">
+            <div class="games-title-corner"><h1>Settings</h1></div>
+            
+            <div class="settings-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; align-items: start; margin-top: 20px;">
+              <!-- Animations Card -->
+              <div class="settings-card">
+                <div class="settings-card-header"><div class="settings-card-title">Animations</div></div>
+                <p class="settings-card-desc">Enable smooth page transitions and hover effects.</p>
+                <div class="settings-toggle">
+                  <span id="animLabel">Enabled</span>
+                  <label class="toggle-switch">
+                    <input type="checkbox" id="animToggle" checked onchange="saveAnimations()">
+                    <span class="slider"></span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Particles Card -->
+              <div class="settings-card">
+                <div class="settings-card-header"><div class="settings-card-title">Particles</div></div>
+                <p class="settings-card-desc">Choose a dynamic background effect.</p>
+                <select id="particleSelect" class="settings-select" onchange="saveParticle()">
+                  <option value="rain">Digital Rain</option>
+                  <option value="stars">Starfield</option>
+                  <option value="snow">Snow</option>
+                  <option value="bubbles">Bubbles</option>
+                  <option value="embers">Embers</option>
+                  <option value="matrix">Matrix</option>
+                  <option value="grid">Grid</option>
+                  <option value="none">None</option>
+                </select>
+                <div class="settings-actions" style="margin-top:14px;">
+                  <button class="s-btn accent" onclick="saveParticle()">Apply Background</button>
+                </div>
+              </div>
+
+              <!-- Theme Card -->
+              <div class="settings-card" style="grid-column: 1 / -1; max-width: 660px; justify-self: center;">
+                <div class="settings-card-header"><div class="settings-card-title">Theme Layout</div></div>
+                <p class="settings-card-desc">Choose a color theme for the entire site.</p>
+                <div style="display:flex; gap:15px; flex-wrap:wrap;">
+                  <div style="flex:1; min-width:200px;">
+                    <label style="font-size:13px;color:#9ca3af;display:block;margin-bottom:4px;">Base Theme:</label>
+                    <select id="themeSelect" class="settings-select">
+                      <option value="theme-bw">Black &amp; White</option>
+                      <option value="theme-dark">Dark Original</option>
+                      <option value="theme-neon">Neon</option>
+                      <option value="theme-sunset">Sunset</option>
+                      <option value="theme-ocean">Ocean</option>
+                      <option value="theme-forest">Forest</option>
+                    </select>
+                  </div>
+                  <div style="flex:1; min-width:200px;">
+                    <label style="font-size:13px;color:#9ca3af;display:block;margin-bottom:4px;">Accent color:</label>
+                    <select id="colorSelect" class="settings-select">
+                      <option value="">Default</option>
+                      <option value="red">Red</option>
+                      <option value="blue">Blue</option>
+                      <option value="green">Green</option>
+                      <option value="purple">Purple</option>
+                      <option value="orange">Orange</option>
+                      <option value="pink">Pink</option>
+                      <option value="cyan">Cyan</option>
+                      <option value="yellow">Yellow</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="settings-actions" style="margin-top:20px;">
+                  <button class="s-btn accent" onclick="applyTheme()">Apply Theme</button>
+                  <button class="s-btn danger" onclick="resetTheme()">Reset</button>
+                </div>
+              </div>
+            </div>
           </div>
         </main>
       </div>

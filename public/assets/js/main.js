@@ -61,15 +61,40 @@ function injectSidebar() {
         <nav class="sidebar-nav">
             <a href="games.html" class="${currentPage === 'games.html' ? 'active' : ''}">GAMES</a>
             <a href="apps.html" class="${currentPage === 'apps.html' ? 'active' : ''}">APPS</a>
-            <a href="movies.html" class="${currentPage === 'movies.html' ? 'active' : ''}">MOVIES</a>
-            <a href="shows.html" class="${currentPage === 'shows.html' ? 'active' : ''}">SHOWS</a>
             <a href="settings.html" class="${currentPage === 'settings.html' ? 'active' : ''}">SETTINGS</a>
         </nav>
-        <div class="sidebar-footer" style="margin-top: auto;">
-            <a href="https://discord.gg/7MjQzEHfd8" target="_blank" class="sidebar-btn discord" style="font-size: 16px;">JOIN DISCORD</a>
+        <div class="sidebar-footer" style="margin-top: auto; display: flex; gap: 10px;">
+            <a href="https://discord.gg/7MjQzEHfd8" target="_blank" class="sidebar-btn" style="flex: 1; padding: 12px 10px; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-decoration: none; font-size: 11px; letter-spacing: 1px; font-weight: bold; font-family: 'Arial Black', Impact, sans-serif; text-transform: uppercase; text-align: center; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.1)'">DISCORD</a>
+            <a href="#" onclick="openCredits(); return false;" class="sidebar-btn" style="flex: 1; padding: 12px 10px; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; text-decoration: none; font-size: 11px; letter-spacing: 1px; font-weight: bold; font-family: 'Arial Black', Impact, sans-serif; text-transform: uppercase; text-align: center; transition: all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.1)';this.style.borderColor='rgba(255,255,255,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.05)';this.style.borderColor='rgba(255,255,255,0.1)'">CREDITS</a>
         </div>
     `;
+
+    // Inject Credits popup HTML dynamically if it doesn't exist
+    if (!document.getElementById('creditsModal')) {
+        const modal = document.createElement('div');
+        modal.id = 'creditsModal';
+        modal.style.cssText = 'display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); flex-direction:column; align-items:center; justify-content:center;';
+        modal.innerHTML = `
+            <div style="background:rgba(27,27,27,0.9); border:2px solid rgba(255,255,255,0.1); border-radius:16px; padding:40px; width:90%; max-width:500px; text-align:center; color:#fff; position:relative;">
+                <button onclick="document.getElementById('creditsModal').style.display='none'" style="position:absolute; top:20px; right:20px; background:none; border:none; color:#aaa; font-size:24px; cursor:pointer;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">&times;</button>
+                <div style="font-family:'Arial Black', Impact, sans-serif; font-size:36px; margin-bottom:5px; text-transform:uppercase; letter-spacing:2px;">Quantum <span>V4</span></div>
+                <div style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:30px; letter-spacing:4px; text-transform:uppercase;">Development Team</div>
+                
+                <div style="display:flex; flex-direction:column; gap:15px; text-align:left; background:rgba(0,0,0,0.3); padding:20px; border-radius:12px;">
+                    <div><span style="color:var(--primary, #4ade80); font-weight:bold;">Zomob</span> - Lead Developer & UI/UX</div>
+                    <div><span style="color:var(--primary, #4ade80); font-weight:bold;">Interstellar</span> - App Library & Proxies</div>
+                    <div><span style="color:var(--primary, #4ade80); font-weight:bold;">Antigravity</span> - Code Synthesis</div>
+                </div>
+                <div style="margin-top:30px; font-size:12px; color:rgba(255,255,255,0.4);">© 2026 Quantum Games. All rights reserved.</div>
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
 }
+
+window.openCredits = function() {
+    document.getElementById('creditsModal').style.display = 'flex';
+};
 
 function initialize() {
     console.log('Eclipse Initializing...');

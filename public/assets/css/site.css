@@ -123,8 +123,14 @@ body.banner-bg {
 canvas {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 5; /* Above panels (z-index: 2) but below interactive elements (z-index: 10) */
   pointer-events: none;
+}
+
+/* Ensure interactive elements sit ABOVE particles */
+.sidebar-nav a, .sidebar-btn, .search-container, .card, .settings-card, button, select, input {
+  position: relative;
+  z-index: 10;
 }
 
 body.grid-bg canvas,
@@ -1665,6 +1671,24 @@ h2.no-animation {
 .proxy-go-btn:hover {
   transform: translateY(-2px);
   opacity: 0.9;
+}
+
+.settings-card {
+  background: rgba(27, 27, 27, 0.7);
+  backdrop-filter: blur(12px);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 30px;
+  max-width: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+}
+
+.settings-card:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
 /* Proxy Frame UI */
