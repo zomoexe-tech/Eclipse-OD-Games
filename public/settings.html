@@ -17,32 +17,15 @@
   <!-- Toast -->
   <div id="toast"></div>
 
-  <div class="sidebar">
-    <div class="sidebar-logo">Eclipse</div>
-    <nav class="sidebar-nav">
-      <a href="index.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-        Home
-      </a>
-      <a href="games.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><path d="M6 12h.01M18 12h.01M15 12h.01"></path></svg>
-        Games
-      </a>
-      <a href="apps.html">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>
-        Apps
-      </a>
-      <a href="settings.html" class="active">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
-        Settings
-      </a>
-    </nav>
-    <div class="sidebar-footer">
-      <a href="https://discord.gg/7MjQzEHfd8" target="_blank" class="sidebar-btn discord">Join Discord</a>
-    </div>
-  </div>
-
-  <div class="settings-page-container main-content">
+  <div class="quantum-wrapper">
+    <div class="quantum-window">
+      <header class="quantum-header">
+        <h1><span>V4</span> QUANTUM</h1>
+      </header>
+      <div class="quantum-body">
+        <aside class="sidebar"></aside>
+        <main class="quantum-panel">
+          <div class="settings-page-container main-content">
     <h1 class="settings-page-title">Settings</h1>
     <div class="settings-card">
       <div class="settings-card-header"><div class="settings-card-title">Blanker</div></div>
@@ -98,6 +81,10 @@
       <div class="settings-actions">
         <button class="s-btn accent" onclick="applyTheme()">Apply Theme</button>
         <button class="s-btn danger" onclick="resetTheme()">Reset</button>
+      </div>
+    </div>
+          </div>
+        </main>
       </div>
     </div>
   </div>

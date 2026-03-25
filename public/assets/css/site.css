@@ -17,7 +17,12 @@ body {
 /* ── Base body ── */
 body {
   font-family: 'Inter', 'Segoe UI', Roboto, Arial, sans-serif;
-  background: radial-gradient(circle at top, var(--bg-dark), var(--bg-darker));
+  background-color: var(--bg-darker);
+  background-image: var(--bg-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #ffffff;
   overflow-x: hidden;
 
@@ -26,6 +31,7 @@ body {
   --secondary: #cccccc;
   --bg-dark: #0d0d0d;
   --bg-darker: #000000;
+  --bg-image: url('../images/blackhole_logo.png'); /* Will define the exact generated path later if needed based on the artifact image URL */
   --text-light: #cccccc;
   --text-muted: #aaaaaa;
   --accent-blue: #ffffff;
@@ -135,31 +141,26 @@ body.no-particles canvas {
    NAVIGATION
    ============================================ */
 .sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 240px;
-  background: rgba(13, 13, 13, 0.95);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  width: var(--sidebar-w);
+  background: #252528;
+  border-radius: 12px;
   display: flex;
   flex-direction: column;
-  padding: 30px 0;
-  z-index: 1000;
+  padding: 10px 0;
+  z-index: 10;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  margin-right: 15px;
 }
 
 .sidebar-logo {
-  font-size: 24px;
+  padding: 32px 24px;
+  font-size: 28px;
   font-weight: 900;
-  text-align: center;
-  margin-bottom: 40px;
+  letter-spacing: -1.5px;
   background: linear-gradient(135deg, #fff 0%, var(--primary) 50%, var(--secondary) 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: -1.5px;
   text-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
@@ -167,43 +168,41 @@ body.no-particles canvas {
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 12px;
   padding: 0 15px;
 }
 
 .sidebar-nav a {
   display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 12px;
-  padding: 12px 15px;
+  padding: 20px 10px;
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 12px;
   text-decoration: none;
-  color: #9ca3af;
-  font-size: 14px;
-  font-weight: 600;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
 .sidebar-nav a:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #fff;
-  transform: translateX(5px);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
 }
 
 .sidebar-nav a.active {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--primary);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(255,255,255,0.1);
 }
 
 .sidebar-nav a svg {
-  opacity: 0.7;
-}
-
-.sidebar-nav a.active svg {
-  opacity: 1;
-  stroke: var(--primary);
-  filter: drop-shadow(0 0 5px var(--primary));
+  display: none; /* Hide icons to match the reference */
 }
 
 .sidebar-footer {
@@ -230,22 +229,94 @@ body.no-particles canvas {
 }
 
 .main-content {
-  margin-left: var(--sidebar-w);
-  padding: 60px;
-  width: calc(100% - var(--sidebar-w));
-  min-height: 100vh;
+  flex: 1;
+  padding: 40px;
   position: relative;
   z-index: 1;
+  overflow-y: auto;
+}
+
+/* ── Quantum App Layout ── */
+.quantum-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.quantum-window {
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  background: rgba(43, 43, 43, 0.85); /* Dark grey backplate */
+  border-radius: 20px;
+  border: 4px solid #4a4a4a;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+  backdrop-filter: blur(10px);
+}
+
+.quantum-header {
+  background: #1f1f21;
+  border-radius: 12px;
+  padding: 15px 30px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.05);
+}
+
+.quantum-header h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #ffffff;
+  background: none;
+  -webkit-background-clip: initial;
+  background-clip: initial;
+  -webkit-text-fill-color: initial;
+  text-shadow: 2px 2px 0px #000;
+  font-family: 'Inter', sans-serif;
+  animation: none !important;
+  opacity: 1 !important;
+}
+
+.quantum-header h1 span {
+  font-size: 16px;
+  vertical-align: super;
+  margin-right: 2px;
+}
+
+.quantum-body {
+  display: flex;
+  flex: 1;
+  min-height: 0; /* Important for scrollable flex children */
+}
+
+.quantum-panel {
+  flex: 1;
+  background: #1f1f21;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+  overflow: hidden;
 }
 
 @media (max-width: 768px) {
-  .sidebar { width: 70px; padding: 20px 0; }
-  .sidebar-logo { display: none; }
-  .sidebar-nav a span { display: none; }
-  .sidebar-footer { display: none; }
-  .sidebar-nav { padding: 0 10px; }
-  .sidebar-nav a { justify-content: center; padding: 15px 0; }
-  .main-content { margin-left: 70px; width: calc(100% - 70px); }
+  .quantum-wrapper { padding: 5px; }
+  .quantum-body { flex-direction: column; }
+  .sidebar { width: 100%; margin-right: 0; margin-bottom: 10px; flex-direction: row; flex-wrap: wrap; }
+  .sidebar-nav { flex-direction: row; }
+  .quantum-header h1 { font-size: 28px; }
 }
 
 .settings-btn {
@@ -1066,58 +1137,64 @@ body.animations-disabled .hero-glow {
 
 .games-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
   width: 100%;
 }
 
 .card {
   background-size: cover;
   background-position: center;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  min-height: 120px;
+  min-height: 140px;
   text-decoration: none;
   color: inherit;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   transition: var(--transition-smooth);
   position: relative;
   overflow: hidden;
+  background-color: #111;
 }
 
 .card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
   z-index: 1;
   pointer-events: none;
   transition: var(--transition-smooth);
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 20px var(--glow);
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px var(--glow);
   border-color: var(--primary);
 }
 
 .card:hover::before {
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
 }
 
 .card .title {
-  font-weight: 700;
-  font-size: 14px;
+  font-weight: 800;
+  font-size: 15px;
   text-align: center;
   color: #fff;
-  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   position: relative;
   z-index: 2;
-  padding: 0 8px 12px 8px;
+  padding: 0 12px 16px;
+  transition: var(--transition-smooth);
+}
+
+.card:hover .title {
+  transform: translateY(-2px);
+  color: var(--primary);
 }
 
 .tags-container {
