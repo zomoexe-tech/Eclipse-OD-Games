@@ -68,21 +68,45 @@
   <!-- Panel Overlay -->
   <div class="game-panel-overlay" id="gamePanelOverlay"></div>
   <div class="game-panel" id="gamePanel">
-    <div class="game-panel-content">
-      <div class="game-panel-loader" id="gamePanelLoader">
-        <div class="loader" style="border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #ffffff;"></div>
-        <div style="color: #ffffff; font-size: 14px; margin-top: 16px;">Loading movie...</div>
-      </div>
-      <iframe id="gameFrame" src=""
-        sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin"
-        allow="autoplay *; fullscreen *; accelerometer *; camera *; gyroscope *; magnetometer *; microphone *; usb *; xr-spatial-tracking *"></iframe>
-      <video id="gameVideo" controls style="display: none; width: 100%; height: 100%; max-height: 80vh; border: none; border-radius: 8px; background: #000; outline: none;"></video>
+    <!-- Top bar -->
+    <div class="game-panel-topbar">
+      <h2>QUANTUM <span>V4</span></h2>
     </div>
-    <div class="game-panel-header">
-      <h2 class="game-panel-title" id="gamePanelTitle">Movie</h2>
-      <div class="game-actions">
-        <button class="game-panel-fullscreen" id="gamePanelFullscreen" title="Toggle Fullscreen">⛶</button>
-        <button class="game-panel-close" id="gamePanelClose" title="Close">&times;</button>
+    <!-- Body: left controls + right iframe -->
+    <div class="game-panel-body">
+      <!-- Left control center -->
+      <div class="game-control-panel">
+        <div class="game-ctrl-logo">
+          <div class="q-letter">Q</div>
+          <div class="q-version" id="gamePanelTitle">Movie</div>
+        </div>
+        <div class="game-ctrl-stats">
+          <div class="stat-label">Stats</div>
+          <div class="stat-values" id="panelFps">FPS | PING</div>
+        </div>
+        <button class="game-ctrl-btn" id="gamePanelClearCache" title="Reload">
+          <span class="ctrl-icon">↺</span>
+          <span class="ctrl-label">Clear Cache</span>
+        </button>
+        <button class="game-ctrl-btn" id="gamePanelFullscreen" title="Fullscreen">
+          <span class="ctrl-icon">⛶</span>
+          <span class="ctrl-label">Full Screen</span>
+        </button>
+        <button class="game-ctrl-btn exit-btn" id="gamePanelClose" title="Exit">
+          <span class="ctrl-icon">✕</span>
+          <span class="ctrl-label">Exit</span>
+        </button>
+      </div>
+      <!-- Right: video/iframe content -->
+      <div class="game-panel-content">
+        <div class="game-panel-loader" id="gamePanelLoader">
+          <div class="loader" style="border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #ffffff;"></div>
+          <div style="color: #ffffff; font-size: 14px; margin-top: 16px; font-family:'Arial Black',Impact; text-transform:uppercase; letter-spacing:2px;">Loading...</div>
+        </div>
+        <iframe id="gameFrame" src=""
+          sandbox="allow-forms allow-scripts allow-pointer-lock allow-same-origin"
+          allow="autoplay *; fullscreen *; accelerometer *; camera *; gyroscope *; magnetometer *; microphone *; usb *; xr-spatial-tracking *"></iframe>
+        <video id="gameVideo" controls style="display: none; width: 100%; height: 100%; border: none; border-radius: 10px; background: #000; outline: none;"></video>
       </div>
     </div>
   </div>

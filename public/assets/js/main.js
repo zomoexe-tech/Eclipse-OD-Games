@@ -169,30 +169,30 @@ const ParticleEngine = (function() {
     }
 
     function initSnow() {
-        const flakes = Array.from({ length: 100 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 3 + 1, d: Math.random() }));
+        const flakes = Array.from({ length: 80 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.2 + 0.3, d: Math.random() }));
         let a = 0;
         function draw() {
             ctx.clearRect(0, 0, W, H);
-            ctx.fillStyle = 'rgba(255,255,255,0.8)';
+            ctx.fillStyle = 'rgba(255,255,255,0.6)';
             ctx.beginPath();
             for (const f of flakes) { ctx.moveTo(f.x, f.y); ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2); }
             ctx.fill();
             a += 0.01;
-            for (const f of flakes) { f.y += Math.pow(f.d, 2) + 0.8; f.x += Math.sin(a) * 0.4; if (f.y > H) f.y = 0; }
+            for (const f of flakes) { f.y += Math.pow(f.d, 2) + 0.5; f.x += Math.sin(a) * 0.3; if (f.y > H) f.y = 0; }
             animId = requestAnimationFrame(draw);
         }
         draw();
     }
 
     function initStars() {
-        const stars = Array.from({ length: 150 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 1.5 + 0.2, tw: Math.random() * Math.PI * 2, sp: Math.random() * 0.02 }));
+        const stars = Array.from({ length: 120 }, () => ({ x: Math.random() * W, y: Math.random() * H, r: Math.random() * 0.8 + 0.1, tw: Math.random() * Math.PI * 2, sp: Math.random() * 0.02 }));
         function draw() {
             ctx.clearRect(0, 0, W, H);
             for (const s of stars) {
                 s.tw += s.sp;
                 ctx.beginPath();
                 ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255,255,255,${0.3 + 0.7 * Math.abs(Math.sin(s.tw))})`;
+                ctx.fillStyle = `rgba(255,255,255,${0.2 + 0.6 * Math.abs(Math.sin(s.tw))})`;
                 ctx.fill();
             }
             animId = requestAnimationFrame(draw);
@@ -201,11 +201,11 @@ const ParticleEngine = (function() {
     }
 
     function initRain() {
-        const drops = Array.from({ length: 80 }, () => ({ x: Math.random() * W, y: Math.random() * H, len: Math.random() * 15 + 5, sp: Math.random() * 7 + 5 }));
+        const drops = Array.from({ length: 60 }, () => ({ x: Math.random() * W, y: Math.random() * H, len: Math.random() * 8 + 3, sp: Math.random() * 5 + 4 }));
         function draw() {
             ctx.clearRect(0, 0, W, H);
-            ctx.strokeStyle = 'rgba(150,200,255,0.5)';
-            ctx.lineWidth = 1;
+            ctx.strokeStyle = 'rgba(150,200,255,0.35)';
+            ctx.lineWidth = 0.7;
             for (const d of drops) {
                 ctx.beginPath(); ctx.moveTo(d.x, d.y); ctx.lineTo(d.x - 1, d.y + d.len); ctx.stroke();
                 d.y += d.sp; if (d.y > H) d.y = -d.len;

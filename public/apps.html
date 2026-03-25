@@ -14,10 +14,11 @@
       gap: 18px;
       width: 100%;
     }
+
     .app-card {
       background: rgba(27, 27, 27, 0.7);
       backdrop-filter: blur(12px);
-      border: 2px solid rgba(255,255,255,0.1);
+      border: 2px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
       padding: 20px 12px;
       display: flex;
@@ -29,11 +30,13 @@
       color: #fff;
       transition: all 0.2s ease;
     }
+
     .app-card:hover {
-      border-color: rgba(255,255,255,0.3);
+      border-color: rgba(255, 255, 255, 0.3);
       transform: translateY(-4px);
       background: rgba(43, 43, 46, 0.8);
     }
+
     .app-icon {
       width: 64px;
       height: 64px;
@@ -41,6 +44,7 @@
       object-fit: cover;
       background: #2b2b2e;
     }
+
     .app-name {
       font-family: 'Arial Black', Impact, sans-serif;
       font-size: 12px;
@@ -50,6 +54,7 @@
       color: #fff;
       line-height: 1.3;
     }
+
     .app-card-error {
       opacity: 0.45;
     }
@@ -68,7 +73,9 @@
         <aside class="sidebar"></aside>
         <main class="quantum-panel">
           <div class="games-container main-content">
-            <div class="games-title-corner"><h1>Apps</h1></div>
+            <div class="games-title-corner">
+              <h1>Apps</h1>
+            </div>
             <div class="search-container">
               <input type="text" id="searchInput" class="search-input" placeholder="Search apps...">
             </div>
@@ -84,19 +91,50 @@
   <!-- App Panel Overlay -->
   <div class="game-panel-overlay" id="gamePanelOverlay"></div>
   <div class="game-panel" id="gamePanel">
-    <div class="game-panel-content">
-      <div class="game-panel-loader" id="gamePanelLoader">
-        <div class="loader" style="border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #ffffff;"></div>
-        <div style="color: #ffffff; font-size: 14px; margin-top: 16px; font-family: 'Arial Black', Impact; text-transform: uppercase; letter-spacing: 2px;">Loading...</div>
-      </div>
-      <iframe id="gameFrame" src=""
-        allow="autoplay *; fullscreen *; accelerometer *; camera *; gyroscope *; magnetometer *; microphone *; usb *; xr-spatial-tracking *"></iframe>
+    <!-- Top bar -->
+    <div class="game-panel-topbar">
+      <h2>QUANTUM <span>V4</span></h2>
     </div>
-    <div class="game-panel-header">
-      <h2 class="game-panel-title" id="gamePanelTitle">App</h2>
-      <div class="game-actions">
-        <button class="game-panel-fullscreen" id="gamePanelFullscreen" title="Toggle Fullscreen">⛶</button>
-        <button class="game-panel-close" id="gamePanelClose" title="Close">&times;</button>
+    <!-- Body: left controls + right iframe -->
+    <div class="game-panel-body">
+      <!-- Left control center -->
+      <div class="game-control-panel">
+        <div class="game-ctrl-logo">
+          <div class="q-letter">Q</div>
+          <div class="q-version" id="gamePanelTitle">App</div>
+        </div>
+        <div class="game-ctrl-stats">
+          <div class="stat-label">Stats</div>
+          <div class="stat-values" id="panelFps">FPS | PING</div>
+        </div>
+        <button class="game-ctrl-btn" id="gamePanelClearCache" title="Reload">
+          <span class="ctrl-icon">↺</span>
+          <span class="ctrl-label">Clear Cache</span>
+        </button>
+        <button class="game-ctrl-btn" id="gamePanelFullscreen" title="Fullscreen">
+          <span class="ctrl-icon">⛶</span>
+          <span class="ctrl-label">Full Screen</span>
+        </button>
+        <button class="game-ctrl-btn exit-btn" id="gamePanelClose" title="Exit">
+          <span class="ctrl-icon">✕</span>
+          <span class="ctrl-label">Exit</span>
+        </button>
+      </div>
+      <!-- Right: iframe content -->
+      <div class="game-panel-content">
+        <div class="game-panel-loader" id="gamePanelLoader">
+          <div class="loader" style="border: 3px solid rgba(255,255,255,0.1); border-top: 3px solid #ffffff;"></div>
+          <div style="color: #ffffff; font-size: 14px; margin-top: 16px; font-family: 'Arial Black', Impact; text-transform: uppercase; letter-spacing: 2px;">Loading...</div>
+        </div>
+        <iframe id="gameFrame" src=""
+          allow="autoplay *; fullscreen *; accelerometer *; camera *; gyroscope *; magnetometer *; microphone *; usb *; xr-spatial-tracking *"></iframe>
+        <!-- Error state shown if iframe fails or times out -->
+        <div id="panelError" style="display:none; position:absolute; inset:0; flex-direction:column; align-items:center; justify-content:center; gap:20px; background:rgba(10,10,10,0.85); backdrop-filter:blur(8px);">
+          <div style="font-size:48px;">⚠️</div>
+          <div style="font-family:'Arial Black',Impact,sans-serif; font-size:18px; letter-spacing:3px; text-transform:uppercase; color:#fff;">Failed to Load</div>
+          <div style="font-size:13px; color:#aaa; text-align:center; max-width:340px; line-height:1.6;">This site may block iframes or require a direct connection. Try opening it in a new tab instead.</div>
+          <button class="err-open-btn" style="margin-top:8px; padding:14px 32px; background:rgba(255,255,255,0.1); border:2px solid rgba(255,255,255,0.2); border-radius:12px; color:#fff; font-family:'Arial Black',Impact,sans-serif; font-size:14px; letter-spacing:2px; text-transform:uppercase; cursor:pointer; transition:all 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">Open in New Tab ↗</button>
+        </div>
       </div>
     </div>
   </div>
@@ -118,7 +156,7 @@
         img.className = 'app-icon';
         img.src = app.icon;
         img.alt = app.name;
-        img.onerror = function() { this.src = 'assets/appicons/custom.webp'; };
+        img.onerror = function () { this.src = 'assets/appicons/custom.webp'; };
 
         const name = document.createElement('div');
         name.className = 'app-name';
@@ -139,17 +177,47 @@
       }
     }
 
+    let loadTimeout = null;
+
     function openAppPanel(name, url) {
       const panel = document.getElementById('gamePanel');
       const overlay = document.getElementById('gamePanelOverlay');
       const title = document.getElementById('gamePanelTitle');
       const frame = document.getElementById('gameFrame');
       const loader = document.getElementById('gamePanelLoader');
+      const errBox = document.getElementById('panelError');
+
+      // Reset state
+      errBox.style.display = 'none';
+      loader.classList.remove('hidden');
+      frame.style.display = 'block';
+      frame.src = '';
+      clearTimeout(loadTimeout);
 
       title.textContent = name;
-      loader.classList.remove('hidden');
+
+      // Set timeout — if iframe doesn't fire onload within 12s, show error
+      loadTimeout = setTimeout(() => {
+        loader.classList.add('hidden');
+        frame.style.display = 'none';
+        errBox.style.display = 'flex';
+        errBox.querySelector('.err-open-btn').onclick = () => window.open(url, '_blank');
+      }, 12000);
+
+      frame.onload = () => {
+        clearTimeout(loadTimeout);
+        setTimeout(() => loader.classList.add('hidden'), 200);
+      };
+
+      frame.onerror = () => {
+        clearTimeout(loadTimeout);
+        loader.classList.add('hidden');
+        frame.style.display = 'none';
+        errBox.style.display = 'flex';
+        errBox.querySelector('.err-open-btn').onclick = () => window.open(url, '_blank');
+      };
+
       frame.src = url;
-      frame.onload = () => setTimeout(() => loader.classList.add('hidden'), 200);
 
       panel.classList.add('active');
       overlay.classList.add('active');
