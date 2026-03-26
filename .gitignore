@@ -67,3 +67,16 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Movie Extraction Tools & Local Media
+public/assets/movies/extract.js
+public/assets/movies/download.js
+public/assets/movies/urls.json
+public/assets/movies/yt-dlp.exe
+public/assets/movies/playlist.m3u8
+public/assets/movies/*.mp4
+public/assets/movies/*.mkv
+public/assets/movies/*.webm
+public/assets/movies/node_modules/
+public/assets/movies/package.json
+public/assets/movies/package-lock.json
