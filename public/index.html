@@ -20,40 +20,27 @@
       <header class="quantum-header">
         <h1>QUANTUM <span>V4</span></h1>
       </header>
-      
+
       <div class="quantum-body">
         <aside class="sidebar">
           <!-- Injected by main.js -->
         </aside>
-        
+
         <main class="quantum-panel">
-          <div class="main-content">
-            <div class="hero-glow a"></div>
-            <div class="hero-glow b"></div>
-
-            <div class="hero-content">
-              <div class="hero-eyebrow">Quantum · best unblocked games</div>
-              <h1 class="no-animation" style="font-size: 48px; margin-bottom: 10px;">Welcome Back.</h1>
-              <p class="hero-subtitle">Premium unblocked games for maximum enjoyment.</p>
-
-              <div class="hero-badges"><div class="badge-chip">200+ Games</div></div>
-              <div class="hero-actions">
-                <a href="games.html" class="btn primary">Browse Games</a>
-                <a href="https://discord.gg/7MjQzEHfd8" target="_blank" class="btn discord">Join Discord</a>
-              </div>
-              <a href="https://forms.gle/Lt5JrEKaJJa5RNPi7" target="_blank" class="btn sheets">
-                Request a Game
-                <span class="btn-floating-icon">
-                  <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zM13 9V3.5L18.5 9H13z" />
-                  </svg>
-                </span>
-              </a>
-
-              <!-- Quote -->
-              <div class="quote-section" style="margin-top: 40px;">
-                <p id="quote"></p>
-              </div>
+          <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; padding: 20px;">
+            <div style="background: rgba(27, 27, 27, 0.7); backdrop-filter: blur(12px); border: 2px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 60px 40px; text-align: center; max-width: 800px; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+               <div style="font-family: 'Arial Black', Impact, sans-serif; font-size: 80px; line-height: 1; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px;">Quantum <span style="color: var(--primary, #4ade80);">V4</span></div>
+               <p style="color: rgba(255,255,255,0.7); font-size: 20px; margin: 0; max-width: 80%;">The best premium unblocked gaming website for any occasion.</p>
+               
+               <div style="display: flex; gap: 15px; margin-top: 25px; width: 100%; justify-content: center; flex-wrap: wrap;">
+                 <a href="games.html" class="s-btn accent" style="padding: 16px 36px; font-size: 16px; border-radius: 12px; font-weight: bold; letter-spacing: 1px; text-decoration: none;">BROWSE 350+ GAMES</a>
+                 <a href="apps.html" class="s-btn" style="padding: 16px 36px; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; font-size: 16px; font-weight: bold; letter-spacing: 1px; text-decoration: none; color: white;">WEB APPS</a>
+                 <a href="https://discord.gg/7MjQzEHfd8" target="_blank" class="s-btn" style="padding: 16px 36px; background: rgba(88, 101, 242, 0.15); border: 1px solid rgba(88, 101, 242, 0.4); border-radius: 12px; font-size: 16px; font-weight: bold; letter-spacing: 1px; text-decoration: none; color: white;">JOIN DISCORD</a>
+               </div>
+               
+               <div style="margin-top: 30px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); font-size: 15px; font-style: italic; color: rgba(255,255,255,0.6); width: 100%;">
+                 <span id="quote"></span>
+               </div>
             </div>
           </div>
         </main>
@@ -64,11 +51,11 @@
   <script src="assets/js/main.js"></script>
   <script>
     const quotes = [
-      '"The only way to do great work is to love what you do." — Steve Jobs',
-      '"Life is what happens when you\'re busy making other plans." — John Lennon',
-      '"Believe you can and you\'re halfway there." — Theodore Roosevelt',
-      '"Dreams don\'t work unless you do." — John C. Maxwell',
-      '"U lowky look mad cute rn ;D" — zomo :3'
+      '"Join the discord for more links!',
+      '"The Best unblocked site for anywhere',
+      '"Premium unblocked games, movies, shows, and apps!',
+      '"Say a thx to the Quantum Team!',
+      '"Thx for choosing Quantum!'
     ];
     document.getElementById('quote').textContent = quotes[Math.floor(Math.random() * quotes.length)];
 

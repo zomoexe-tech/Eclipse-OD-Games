@@ -75,17 +75,21 @@ function injectSidebar() {
         modal.id = 'creditsModal';
         modal.style.cssText = 'display:none; position:fixed; inset:0; z-index:9999; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); flex-direction:column; align-items:center; justify-content:center;';
         modal.innerHTML = `
-            <div style="background:rgba(27,27,27,0.9); border:2px solid rgba(255,255,255,0.1); border-radius:16px; padding:40px; width:90%; max-width:500px; text-align:center; color:#fff; position:relative;">
+            <div style="background:rgba(27,27,27,0.9); border:2px solid rgba(255,255,255,0.1); border-radius:16px; padding:40px; width:90%; max-width:550px; text-align:center; color:#fff; position:relative;">
                 <button onclick="document.getElementById('creditsModal').style.display='none'" style="position:absolute; top:20px; right:20px; background:none; border:none; color:#aaa; font-size:24px; cursor:pointer;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='#aaa'">&times;</button>
-                <div style="font-family:'Arial Black', Impact, sans-serif; font-size:36px; margin-bottom:5px; text-transform:uppercase; letter-spacing:2px;">Quantum <span>V4</span></div>
-                <div style="font-size:14px; color:rgba(255,255,255,0.6); margin-bottom:30px; letter-spacing:4px; text-transform:uppercase;">Development Team</div>
+                <div style="font-family:'Arial Black', Impact, sans-serif; font-size:36px; margin-bottom:15px; text-transform:uppercase; letter-spacing:2px;">Quantum <span>V4</span></div>
                 
-                <div style="display:flex; flex-direction:column; gap:15px; text-align:left; background:rgba(0,0,0,0.3); padding:20px; border-radius:12px;">
+                <div style="font-size:15px; color:rgba(255,255,255,0.8); line-height:1.6; margin-bottom:30px; padding:0 10px;">
+                    Quantum Games By Quantum Dev Team. The new best premium unblocked gaming website for any occasion from school to work, quantum has it all, over 350+ games, working apps, movies, shows, and a whole bunch more! Thanks for choosing Quantum :D
+                </div>
+                
+                <div style="font-size:12px; color:rgba(255,255,255,0.5); margin-bottom:15px; letter-spacing:3px; text-transform:uppercase;">Core Development Team</div>
+                <div style="display:flex; flex-direction:column; gap:12px; text-align:center; background:rgba(0,0,0,0.3); padding:20px; border-radius:12px;">
                     <div><span style="color:var(--primary, #4ade80); font-weight:bold;">Zomob</span> - Lead Developer & UI/UX</div>
                     <div><span style="color:var(--primary, #4ade80); font-weight:bold;">Interstellar</span> - App Library & Proxies</div>
                     <div><span style="color:var(--primary, #4ade80); font-weight:bold;">Antigravity</span> - Code Synthesis</div>
                 </div>
-                <div style="margin-top:30px; font-size:12px; color:rgba(255,255,255,0.4);">© 2026 Quantum Games. All rights reserved.</div>
+                <div style="margin-top:25px; font-size:12px; color:rgba(255,255,255,0.4);">© 2026 Quantum Games. All rights reserved.</div>
             </div>
         `;
         document.body.appendChild(modal);
